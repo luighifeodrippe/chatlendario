@@ -182,7 +182,7 @@ const AdvancedContent: FC<AdvancedContentProps> = ({
             delayDuration={0}
             display={
               <div className="w-[400px] p-3">
-                {profile?.profile_context || "No profile context."}
+                {profile?.profile_context || "Sem nenhum contexto de perfil."}
               </div>
             }
             trigger={

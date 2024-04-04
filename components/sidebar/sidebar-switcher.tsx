@@ -34,8 +34,8 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
         />
 
         <SidebarSwitchItem
-          icon={<IconAdjustmentsHorizontal size={SIDEBAR_ICON_SIZE} />}
-          contentType="presets"
+          icon={<IconRobotFace size={SIDEBAR_ICON_SIZE} />}
+          contentType="assistants"
           onContentTypeChange={onContentTypeChange}
         />
 
@@ -64,10 +64,11 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
         />
 
         <SidebarSwitchItem
-          icon={<IconRobotFace size={SIDEBAR_ICON_SIZE} />}
-          contentType="assistants"
+          icon={<IconAdjustmentsHorizontal size={SIDEBAR_ICON_SIZE} />}
+          contentType="presets"
           onContentTypeChange={onContentTypeChange}
         />
+
         {/* 
         <SidebarSwitchItem
           icon={<IconBolt size={SIDEBAR_ICON_SIZE} />}

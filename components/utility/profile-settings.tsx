@@ -401,10 +401,10 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
               </div>
 
               <div className="space-y-1">
-                <Label>Nome de exibição no Chat</Label>
+                <Label>Nome de exibição no chat</Label>
 
                 <Input
-                  placeholder="Nome de exibição no Chat..."
+                  placeholder="Nome de exibição no chat..."
                   value={displayName}
                   onChange={e => setDisplayName(e.target.value)}
                   maxLength={PROFILE_DISPLAY_NAME_MAX}

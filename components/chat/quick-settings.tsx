@@ -241,7 +241,7 @@ export const QuickSettings: FC<QuickSettingsProps> = ({}) => {
         align="start"
       >
         {presets.length === 0 && assistants.length === 0 ? (
-          <div className="p-8 text-center">No items found.</div>
+          <div className="p-8 text-center">Nenhum item encontrado.</div>
         ) : (
           <>
             <Input

@@ -67,7 +67,7 @@ export const StepContainer: FC<StepContainerProps> = ({
               variant="outline"
               onClick={() => onShouldProceed(false)}
             >
-              Back
+              Voltar
             </Button>
           )}
         </div>
@@ -79,7 +79,7 @@ export const StepContainer: FC<StepContainerProps> = ({
               size="sm"
               onClick={() => onShouldProceed(true)}
             >
-              Next
+              Avançar
             </Button>
           )}
         </div>

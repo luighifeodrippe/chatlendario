@@ -161,9 +161,9 @@ export default function SetupPage() {
       case 1:
         return (
           <StepContainer
-            stepDescription="Let's create your profile."
+            stepDescription="Vamos criar seu perfil."
             stepNum={currentStep}
-            stepTitle="Welcome to Lab[IA]"
+            stepTitle="Bem-vindo ao Lab[IA]"
             onShouldProceed={handleShouldProceed}
             showNextButton={!!(username && usernameAvailable)}
             showBackButton={false}
@@ -180,58 +180,58 @@ export default function SetupPage() {
         )
 
       // API Step
+      // case 2:
+      //   return (
+      //     <StepContainer
+      //       stepDescription="Enter API keys for each service you'd like to use."
+      //       stepNum={currentStep}
+      //       stepTitle="Set API Keys (optional)"
+      //       onShouldProceed={handleShouldProceed}
+      //       showNextButton={true}
+      //       showBackButton={true}
+      //     >
+      //       <APIStep
+      //         openaiAPIKey={openaiAPIKey}
+      //         openaiOrgID={openaiOrgID}
+      //         azureOpenaiAPIKey={azureOpenaiAPIKey}
+      //         azureOpenaiEndpoint={azureOpenaiEndpoint}
+      //         azureOpenai35TurboID={azureOpenai35TurboID}
+      //         azureOpenai45TurboID={azureOpenai45TurboID}
+      //         azureOpenai45VisionID={azureOpenai45VisionID}
+      //         azureOpenaiEmbeddingsID={azureOpenaiEmbeddingsID}
+      //         anthropicAPIKey={anthropicAPIKey}
+      //         googleGeminiAPIKey={googleGeminiAPIKey}
+      //         mistralAPIKey={mistralAPIKey}
+      //         groqAPIKey={groqAPIKey}
+      //         perplexityAPIKey={perplexityAPIKey}
+      //         useAzureOpenai={useAzureOpenai}
+      //         onOpenaiAPIKeyChange={setOpenaiAPIKey}
+      //         onOpenaiOrgIDChange={setOpenaiOrgID}
+      //         onAzureOpenaiAPIKeyChange={setAzureOpenaiAPIKey}
+      //         onAzureOpenaiEndpointChange={setAzureOpenaiEndpoint}
+      //         onAzureOpenai35TurboIDChange={setAzureOpenai35TurboID}
+      //         onAzureOpenai45TurboIDChange={setAzureOpenai45TurboID}
+      //         onAzureOpenai45VisionIDChange={setAzureOpenai45VisionID}
+      //         onAzureOpenaiEmbeddingsIDChange={setAzureOpenaiEmbeddingsID}
+      //         onAnthropicAPIKeyChange={setAnthropicAPIKey}
+      //         onGoogleGeminiAPIKeyChange={setGoogleGeminiAPIKey}
+      //         onMistralAPIKeyChange={setMistralAPIKey}
+      //         onGroqAPIKeyChange={setGroqAPIKey}
+      //         onPerplexityAPIKeyChange={setPerplexityAPIKey}
+      //         onUseAzureOpenaiChange={setUseAzureOpenai}
+      //         openrouterAPIKey={openrouterAPIKey}
+      //         onOpenrouterAPIKeyChange={setOpenrouterAPIKey}
+      //       />
+      //     </StepContainer>
+      //   )
+
+      // Finish Step
       case 2:
         return (
           <StepContainer
-            stepDescription="Enter API keys for each service you'd like to use."
+            stepDescription="Está tudo pronto!"
             stepNum={currentStep}
-            stepTitle="Set API Keys (optional)"
-            onShouldProceed={handleShouldProceed}
-            showNextButton={true}
-            showBackButton={true}
-          >
-            <APIStep
-              openaiAPIKey={openaiAPIKey}
-              openaiOrgID={openaiOrgID}
-              azureOpenaiAPIKey={azureOpenaiAPIKey}
-              azureOpenaiEndpoint={azureOpenaiEndpoint}
-              azureOpenai35TurboID={azureOpenai35TurboID}
-              azureOpenai45TurboID={azureOpenai45TurboID}
-              azureOpenai45VisionID={azureOpenai45VisionID}
-              azureOpenaiEmbeddingsID={azureOpenaiEmbeddingsID}
-              anthropicAPIKey={anthropicAPIKey}
-              googleGeminiAPIKey={googleGeminiAPIKey}
-              mistralAPIKey={mistralAPIKey}
-              groqAPIKey={groqAPIKey}
-              perplexityAPIKey={perplexityAPIKey}
-              useAzureOpenai={useAzureOpenai}
-              onOpenaiAPIKeyChange={setOpenaiAPIKey}
-              onOpenaiOrgIDChange={setOpenaiOrgID}
-              onAzureOpenaiAPIKeyChange={setAzureOpenaiAPIKey}
-              onAzureOpenaiEndpointChange={setAzureOpenaiEndpoint}
-              onAzureOpenai35TurboIDChange={setAzureOpenai35TurboID}
-              onAzureOpenai45TurboIDChange={setAzureOpenai45TurboID}
-              onAzureOpenai45VisionIDChange={setAzureOpenai45VisionID}
-              onAzureOpenaiEmbeddingsIDChange={setAzureOpenaiEmbeddingsID}
-              onAnthropicAPIKeyChange={setAnthropicAPIKey}
-              onGoogleGeminiAPIKeyChange={setGoogleGeminiAPIKey}
-              onMistralAPIKeyChange={setMistralAPIKey}
-              onGroqAPIKeyChange={setGroqAPIKey}
-              onPerplexityAPIKeyChange={setPerplexityAPIKey}
-              onUseAzureOpenaiChange={setUseAzureOpenai}
-              openrouterAPIKey={openrouterAPIKey}
-              onOpenrouterAPIKeyChange={setOpenrouterAPIKey}
-            />
-          </StepContainer>
-        )
-
-      // Finish Step
-      case 3:
-        return (
-          <StepContainer
-            stepDescription="You are all set up!"
-            stepNum={currentStep}
-            stepTitle="Setup Complete"
+            stepTitle="Configuração Concluída"
             onShouldProceed={handleShouldProceed}
             showNextButton={true}
             showBackButton={true}

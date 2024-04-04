@@ -64,7 +64,7 @@ export const ProfileStep: FC<ProfileStepProps> = ({
       if (!usernameRegex.test(username)) {
         onUsernameAvailableChange(false)
         alert(
-          "Username must be letters, numbers, or underscores only - no other characters or spacing allowed."
+          "O nome de usuário deve conter apenas letras, números ou sublinhados - nenhum outro caractere ou espaçamento é permitido."
         )
         return
       }
@@ -94,9 +94,9 @@ export const ProfileStep: FC<ProfileStepProps> = ({
 
           <div className="text-xs">
             {usernameAvailable ? (
-              <div className="text-green-500">AVAILABLE</div>
+              <div className="text-green-500">DISPONÍVEL</div>
             ) : (
-              <div className="text-red-500">UNAVAILABLE</div>
+              <div className="text-red-500">INDISPONÍVEL</div>
             )}
           </div>
         </div>
@@ -129,7 +129,7 @@ export const ProfileStep: FC<ProfileStepProps> = ({
       </div>
 
       <div className="space-y-1">
-        <Label>Nome de exibição do Chat</Label>
+        <Label>Nome de exibição no chat</Label>
 
         <Input
           placeholder="Seu Nome"
