@@ -82,7 +82,7 @@ export const AssistantRetrievalSelect: FC<AssistantRetrievalSelectProps> = ({
       >
         <Input
           ref={inputRef}
-          placeholder="Search files..."
+          placeholder="Buscar arquivos..."
           value={search}
           onChange={e => setSearch(e.target.value)}
           onKeyDown={e => e.stopPropagation()}

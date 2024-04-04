@@ -227,7 +227,7 @@ export const QuickSettings: FC<QuickSettingsProps> = ({}) => {
 
                 {selectedPreset?.name ||
                   selectedAssistant?.name ||
-                  t("Configurações Rápidas")}
+                  t("Assistentes GPTs")}
               </div>
 
               <IconChevronDown className="ml-1" />
@@ -247,7 +247,7 @@ export const QuickSettings: FC<QuickSettingsProps> = ({}) => {
             <Input
               ref={inputRef}
               className="w-full"
-              placeholder="Search..."
+              placeholder="Buscar..."
               value={search}
               onChange={e => setSearch(e.target.value)}
               onKeyDown={e => e.stopPropagation()}
