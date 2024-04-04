@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     "./.next/types/**/*.ts",
     "i18nConfig.js"
-  ],
+, "app/[locale]/prompts.js"  ],
   "exclude": ["node_modules"]
 }

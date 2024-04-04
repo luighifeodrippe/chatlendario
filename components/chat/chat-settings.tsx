@@ -72,7 +72,7 @@ export const ChatSettings: FC<ChatSettingsProps> = ({}) => {
           className="flex items-center space-x-2"
           variant="ghost"
         >
-          <div className="max-w-[120px] truncate text-lg sm:max-w-[300px] lg:max-w-[500px]">
+          <div className="max-w-[200px] truncate text-lg sm:max-w-[300px] lg:max-w-[200px]">
             {fullModel?.modelName || chatSettings.model}
           </div>
 
