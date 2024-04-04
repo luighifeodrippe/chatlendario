@@ -114,26 +114,26 @@ export const SidebarDeleteItem: FC<SidebarDeleteItemProps> = ({
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
       <DialogTrigger asChild>
         <Button className="text-red-500" variant="ghost">
-          Delete
+          Deletar
         </Button>
       </DialogTrigger>
 
       <DialogContent onKeyDown={handleKeyDown}>
         <DialogHeader>
-          <DialogTitle>Delete {contentType.slice(0, -1)}</DialogTitle>
+          <DialogTitle>Deletar {contentType.slice(0, -1)}</DialogTitle>
 
           <DialogDescription>
-            Are you sure you want to delete {item.name}?
+            Tem certeza de que deseja excluir {item.name}?
           </DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
           <Button variant="ghost" onClick={() => setShowDialog(false)}>
-            Cancel
+            Cancelar
           </Button>
 
           <Button ref={buttonRef} variant="destructive" onClick={handleDelete}>
-            Delete
+            Deletar
           </Button>
         </DialogFooter>
       </DialogContent>

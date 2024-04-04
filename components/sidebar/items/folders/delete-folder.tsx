@@ -107,16 +107,16 @@ export const DeleteFolder: FC<DeleteFolderProps> = ({
 
       <DialogContent className="min-w-[550px]">
         <DialogHeader>
-          <DialogTitle>Delete {folder.name}</DialogTitle>
+          <DialogTitle>Deletar {folder.name}</DialogTitle>
 
           <DialogDescription>
-            Are you sure you want to delete this folder?
+            Tem certeza de que deseja excluir esta pasta?
           </DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
           <Button variant="ghost" onClick={() => setShowFolderDialog(false)}>
-            Cancel
+            Cancelar
           </Button>
 
           <Button
@@ -124,7 +124,7 @@ export const DeleteFolder: FC<DeleteFolderProps> = ({
             variant="destructive"
             onClick={handleDeleteFolderAndItems}
           >
-            Delete Folder & Included Items
+            Excluir pasta e itens inclusos
           </Button>
 
           <Button
@@ -132,7 +132,7 @@ export const DeleteFolder: FC<DeleteFolderProps> = ({
             variant="destructive"
             onClick={handleDeleteFolderOnly}
           >
-            Delete Folder Only
+            Excluir apenas pasta
           </Button>
         </DialogFooter>
       </DialogContent>

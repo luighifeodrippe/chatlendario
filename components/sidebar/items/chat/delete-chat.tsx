@@ -54,16 +54,16 @@ export const DeleteChat: FC<DeleteChatProps> = ({ chat }) => {
 
       <DialogContent onKeyDown={handleKeyDown}>
         <DialogHeader>
-          <DialogTitle>Delete {chat.name}</DialogTitle>
+          <DialogTitle>Deletar {chat.name}</DialogTitle>
 
           <DialogDescription>
-            Are you sure you want to delete this chat?
+            Tem certeza de que deseja excluir este chat?
           </DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
           <Button variant="ghost" onClick={() => setShowChatDialog(false)}>
-            Cancel
+            Cancelar
           </Button>
 
           <Button
@@ -71,7 +71,7 @@ export const DeleteChat: FC<DeleteChatProps> = ({ chat }) => {
             variant="destructive"
             onClick={handleDeleteChat}
           >
-            Delete
+            Deletar
           </Button>
         </DialogFooter>
       </DialogContent>
