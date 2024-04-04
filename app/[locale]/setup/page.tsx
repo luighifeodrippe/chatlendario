@@ -80,7 +80,9 @@ export default function SetupPage() {
 
   const handleShouldProceed = (proceed: boolean) => {
     if (proceed) {
-      if (currentStep >= 1) {
+      const nextStep = currentStep + 1
+      setCurrentStep(nextStep)
+      if (nextStep > 1) {
         handleSaveSetupSetting()
       }
     } else {
@@ -94,7 +96,6 @@ export default function SetupPage() {
 
   const renderStep = (stepNum: number) => {
     switch (stepNum) {
-      // Profile Step
       case 1:
         return (
           <StepContainer
@@ -116,7 +117,6 @@ export default function SetupPage() {
           </StepContainer>
         )
 
-      // Finish Step
       case 2:
         return (
           <StepContainer
@@ -130,6 +130,7 @@ export default function SetupPage() {
             <FinishStep displayName={displayName} />
           </StepContainer>
         )
+
       default:
         return null
     }
