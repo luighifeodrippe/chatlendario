@@ -66,7 +66,7 @@ export const MessageActions: FC<MessageActionsProps> = ({
         <WithTooltip
           delayDuration={1000}
           side="bottom"
-          display={<div>Edit</div>}
+          display={<div>Editar</div>}
           trigger={
             <IconEdit
               className="cursor-pointer hover:opacity-50"

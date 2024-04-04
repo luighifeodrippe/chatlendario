@@ -183,9 +183,9 @@ export default function SetupPage() {
       case 2:
         return (
           <StepContainer
-            stepDescription="Lab[IA]"
+            stepDescription="Todas as APIs já foram devidamente configuradas para você."
             stepNum={currentStep}
-            stepTitle="Todas as APIs já foram devidamente configuradas para você."
+            stepTitle="Lab[IA]"
             onShouldProceed={handleShouldProceed}
             showNextButton={true}
             showBackButton={true}
