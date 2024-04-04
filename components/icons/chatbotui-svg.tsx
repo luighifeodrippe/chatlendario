@@ -9,10 +9,10 @@ export const ChatbotUISVG: FC<ChatbotUISVGProps> = ({ theme, scale = 1 }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="120"
+      width="200"
       zoomAndPan="magnify"
       viewBox="0 0 375 374.999991"
-      height="120"
+      height="200"
       preserveAspectRatio="xMidYMid meet"
       version="1.0"
     >
