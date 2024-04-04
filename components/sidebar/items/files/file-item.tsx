@@ -46,10 +46,10 @@ export const FileItem: FC<FileItemProps> = ({ file }) => {
           </div>
 
           <div className="space-y-1">
-            <Label>Name</Label>
+            <Label>Nome</Label>
 
             <Input
-              placeholder="File name..."
+              placeholder="Nome do arquivo..."
               value={name}
               onChange={e => setName(e.target.value)}
               maxLength={FILE_NAME_MAX}
@@ -57,10 +57,10 @@ export const FileItem: FC<FileItemProps> = ({ file }) => {
           </div>
 
           <div className="space-y-1">
-            <Label>Description</Label>
+            <Label>Descrição</Label>
 
             <Input
-              placeholder="File description..."
+              placeholder="Descrição do arquivo..."
               value={description}
               onChange={e => setDescription(e.target.value)}
               maxLength={FILE_DESCRIPTION_MAX}

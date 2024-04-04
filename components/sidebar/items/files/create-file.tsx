@@ -56,7 +56,7 @@ export const CreateFile: FC<CreateFileProps> = ({ isOpen, onOpenChange }) => {
       renderInputs={() => (
         <>
           <div className="space-y-1">
-            <Label>File</Label>
+            <Label>Arquivo</Label>
 
             <Input
               type="file"
@@ -69,7 +69,7 @@ export const CreateFile: FC<CreateFileProps> = ({ isOpen, onOpenChange }) => {
             <Label>Name</Label>
 
             <Input
-              placeholder="File name..."
+              placeholder="Nome do arquivo..."
               value={name}
               onChange={e => setName(e.target.value)}
               maxLength={FILE_NAME_MAX}
@@ -77,10 +77,10 @@ export const CreateFile: FC<CreateFileProps> = ({ isOpen, onOpenChange }) => {
           </div>
 
           <div className="space-y-1">
-            <Label>Description</Label>
+            <Label>Descrição</Label>
 
             <Input
-              placeholder="File description..."
+              placeholder="Descrição do arquivo..."
               value={name}
               onChange={e => setDescription(e.target.value)}
               maxLength={FILE_DESCRIPTION_MAX}

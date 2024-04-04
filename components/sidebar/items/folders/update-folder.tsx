@@ -56,7 +56,7 @@ export const UpdateFolder: FC<UpdateFolderProps> = ({ folder }) => {
         </DialogHeader>
 
         <div className="space-y-1">
-          <Label>Name</Label>
+          <Label>Nome</Label>
 
           <Input value={name} onChange={e => setName(e.target.value)} />
         </div>

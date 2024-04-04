@@ -64,7 +64,7 @@ export const CreateCollection: FC<CreateCollectionProps> = ({
       renderInputs={() => (
         <>
           <div className="space-y-1">
-            <Label>Files</Label>
+            <Label>Arquivos</Label>
 
             <CollectionFileSelect
               selectedCollectionFiles={selectedCollectionFiles}
@@ -73,10 +73,10 @@ export const CreateCollection: FC<CreateCollectionProps> = ({
           </div>
 
           <div className="space-y-1">
-            <Label>Name</Label>
+            <Label>Nome</Label>
 
             <Input
-              placeholder="Collection name..."
+              placeholder="Nome da coleção..."
               value={name}
               onChange={e => setName(e.target.value)}
               maxLength={COLLECTION_NAME_MAX}
@@ -84,10 +84,10 @@ export const CreateCollection: FC<CreateCollectionProps> = ({
           </div>
 
           <div className="space-y-1">
-            <Label>Description</Label>
+            <Label>Descrição</Label>
 
             <Input
-              placeholder="Collection description..."
+              placeholder="Descrição da coleção..."
               value={description}
               onChange={e => setDescription(e.target.value)}
               maxLength={COLLECTION_DESCRIPTION_MAX}

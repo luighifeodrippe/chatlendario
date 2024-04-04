@@ -44,10 +44,10 @@ export const CreateTool: FC<CreateToolProps> = ({ isOpen, onOpenChange }) => {
       renderInputs={() => (
         <>
           <div className="space-y-1">
-            <Label>Name</Label>
+            <Label>Nome</Label>
 
             <Input
-              placeholder="Tool name..."
+              placeholder="Nome da ferramenta..."
               value={name}
               onChange={e => setName(e.target.value)}
               maxLength={TOOL_NAME_MAX}
@@ -55,10 +55,10 @@ export const CreateTool: FC<CreateToolProps> = ({ isOpen, onOpenChange }) => {
           </div>
 
           <div className="space-y-1">
-            <Label>Description</Label>
+            <Label>Descrição</Label>
 
             <Input
-              placeholder="Tool description..."
+              placeholder="Descrição da ferramenta..."
               value={description}
               onChange={e => setDescription(e.target.value)}
               maxLength={TOOL_DESCRIPTION_MAX}
@@ -156,7 +156,7 @@ export const CreateTool: FC<CreateToolProps> = ({ isOpen, onOpenChange }) => {
                     .then(() => setSchemaError("")) // Clear error if validation is successful
                     .catch(error => setSchemaError(error.message)) // Set specific validation error message
                 } catch (error) {
-                  setSchemaError("Invalid JSON format") // Set error for invalid JSON format
+                  setSchemaError("Formato JSON inválido") // Set error for invalid JSON format
                 }
               }}
               minRows={15}

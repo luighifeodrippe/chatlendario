@@ -39,10 +39,10 @@ export const ModelItem: FC<ModelItemProps> = ({ model }) => {
       renderInputs={() => (
         <>
           <div className="space-y-1">
-            <Label>Name</Label>
+            <Label>Nome</Label>
 
             <Input
-              placeholder="Model name..."
+              placeholder="Nome do Modelo..."
               value={name}
               onChange={e => setName(e.target.value)}
               maxLength={MODEL_NAME_MAX}
@@ -50,42 +50,42 @@ export const ModelItem: FC<ModelItemProps> = ({ model }) => {
           </div>
 
           <div className="space-y-1">
-            <Label>Model ID</Label>
+            <Label>ID do Modelo</Label>
 
             <Input
-              placeholder="Model ID..."
+              placeholder="ID do Modelo..."
               value={modelId}
               onChange={e => setModelId(e.target.value)}
             />
           </div>
 
           <div className="space-y-1">
-            <Label>Base URL</Label>
+            <Label>URL Base</Label>
 
             <Input
-              placeholder="Base URL..."
+              placeholder="URL Base..."
               value={baseUrl}
               onChange={e => setBaseUrl(e.target.value)}
             />
 
             <div className="pt-1 text-xs italic">
-              Your API must be compatible with the OpenAI SDK.
+              Sua API deve ser compatível com o OpenAI SDK.
             </div>
           </div>
 
           <div className="space-y-1">
-            <Label>API Key</Label>
+            <Label>Chave API</Label>
 
             <Input
               type="password"
-              placeholder="API Key..."
+              placeholder="Chave API..."
               value={apiKey}
               onChange={e => setApiKey(e.target.value)}
             />
           </div>
 
           <div className="space-y-1">
-            <Label>Max Context Length</Label>
+            <Label>Tamanho Máximo do Contexto...</Label>
 
             <Input
               type="number"

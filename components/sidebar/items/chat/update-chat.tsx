@@ -56,18 +56,18 @@ export const UpdateChat: FC<UpdateChatProps> = ({ chat }) => {
         </DialogHeader>
 
         <div className="space-y-1">
-          <Label>Name</Label>
+          <Label>Nome</Label>
 
           <Input value={name} onChange={e => setName(e.target.value)} />
         </div>
 
         <DialogFooter>
           <Button variant="ghost" onClick={() => setShowChatDialog(false)}>
-            Cancel
+            Cancelar
           </Button>
 
           <Button ref={buttonRef} onClick={handleUpdateChat}>
-            Save
+            Salvar
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -90,7 +90,7 @@ export const ProfileStep: FC<ProfileStepProps> = ({
     <>
       <div className="space-y-1">
         <div className="flex items-center space-x-2">
-          <Label>Username</Label>
+          <Label>Nome de usuário</Label>
 
           <div className="text-xs">
             {usernameAvailable ? (
@@ -129,10 +129,10 @@ export const ProfileStep: FC<ProfileStepProps> = ({
       </div>
 
       <div className="space-y-1">
-        <Label>Chat Display Name</Label>
+        <Label>Nome de exibição do Chat</Label>
 
         <Input
-          placeholder="Your Name"
+          placeholder="Seu Nome"
           value={displayName}
           onChange={e => onDisplayNameChange(e.target.value)}
           maxLength={PROFILE_DISPLAY_NAME_MAX}

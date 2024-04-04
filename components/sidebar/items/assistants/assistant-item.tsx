@@ -167,10 +167,10 @@ export const AssistantItem: FC<AssistantItemProps> = ({ assistant }) => {
       }) => (
         <>
           <div className="space-y-1">
-            <Label>Name</Label>
+            <Label>Nome</Label>
 
             <Input
-              placeholder="Assistant name..."
+              placeholder="Nome do assistente..."
               value={name}
               onChange={e => setName(e.target.value)}
               maxLength={ASSISTANT_NAME_MAX}
@@ -178,10 +178,10 @@ export const AssistantItem: FC<AssistantItemProps> = ({ assistant }) => {
           </div>
 
           <div className="space-y-1 pt-2">
-            <Label>Description</Label>
+            <Label>Descrição</Label>
 
             <Input
-              placeholder="Assistant description..."
+              placeholder="Descrição do assistente..."
               value={description}
               onChange={e => setDescription(e.target.value)}
               maxLength={ASSISTANT_DESCRIPTION_MAX}
@@ -189,7 +189,7 @@ export const AssistantItem: FC<AssistantItemProps> = ({ assistant }) => {
           </div>
 
           <div className="space-y-1">
-            <Label>Image</Label>
+            <Label>Imagem</Label>
 
             <ImagePicker
               src={imageLink}
@@ -208,7 +208,7 @@ export const AssistantItem: FC<AssistantItemProps> = ({ assistant }) => {
           />
 
           <div className="space-y-1 pt-2">
-            <Label>Files & Collections</Label>
+            <Label>Arquivos & Coleções</Label>
 
             <AssistantRetrievalSelect
               selectedAssistantRetrievalItems={
@@ -270,7 +270,7 @@ export const AssistantItem: FC<AssistantItemProps> = ({ assistant }) => {
           </div>
 
           <div className="space-y-1">
-            <Label>Tools</Label>
+            <Label>Ferramentas</Label>
 
             <AssistantToolSelect
               selectedAssistantTools={

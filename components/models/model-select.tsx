@@ -145,7 +145,7 @@ export const ModelSelect: FC<ModelSelectProps> = ({
         <Input
           ref={inputRef}
           className="w-full"
-          placeholder="Search models..."
+          placeholder="Procurar modelos..."
           value={search}
           onChange={e => setSearch(e.target.value)}
         />

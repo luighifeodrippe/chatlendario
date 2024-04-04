@@ -53,10 +53,10 @@ export const PresetItem: FC<PresetItemProps> = ({ preset }) => {
       renderInputs={() => (
         <>
           <div className="space-y-1">
-            <Label>Name</Label>
+            <Label>Nome</Label>
 
             <Input
-              placeholder="Preset name..."
+              placeholder="Nome predefinido..."
               value={name}
               onChange={e => setName(e.target.value)}
               maxLength={PRESET_NAME_MAX}

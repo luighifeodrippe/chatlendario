@@ -136,10 +136,10 @@ export const CreateAssistant: FC<CreateAssistantProps> = ({
       renderInputs={() => (
         <>
           <div className="space-y-1">
-            <Label>Name</Label>
+            <Label>Nome</Label>
 
             <Input
-              placeholder="Assistant name..."
+              placeholder="Nome do assistente..."
               value={name}
               onChange={e => setName(e.target.value)}
               maxLength={ASSISTANT_NAME_MAX}
@@ -147,10 +147,10 @@ export const CreateAssistant: FC<CreateAssistantProps> = ({
           </div>
 
           <div className="space-y-1 pt-2">
-            <Label>Description</Label>
+            <Label>Descrição</Label>
 
             <Input
-              placeholder="Assistant description..."
+              placeholder="Descrição do assistente..."
               value={description}
               onChange={e => setDescription(e.target.value)}
               maxLength={ASSISTANT_DESCRIPTION_MAX}
@@ -181,7 +181,7 @@ export const CreateAssistant: FC<CreateAssistantProps> = ({
           />
 
           <div className="space-y-1 pt-2">
-            <Label>Files & Collections</Label>
+            <Label>Arquivos & Coleções</Label>
 
             <AssistantRetrievalSelect
               selectedAssistantRetrievalItems={selectedAssistantRetrievalItems}
@@ -191,7 +191,7 @@ export const CreateAssistant: FC<CreateAssistantProps> = ({
 
           {checkIfModelIsToolCompatible() ? (
             <div className="space-y-1">
-              <Label>Tools</Label>
+              <Label>Ferramentas</Label>
 
               <AssistantToolSelect
                 selectedAssistantTools={selectedAssistantToolItems}
@@ -200,7 +200,7 @@ export const CreateAssistant: FC<CreateAssistantProps> = ({
             </div>
           ) : (
             <div className="pt-1 font-semibold">
-              Model is not compatible with tools.
+              O modelo não é compatível com ferramentas.
             </div>
           )}
         </>

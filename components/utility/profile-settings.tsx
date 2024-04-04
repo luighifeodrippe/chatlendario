@@ -342,14 +342,14 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
             <TabsContent className="mt-4 space-y-4" value="profile">
               <div className="space-y-1">
                 <div className="flex items-center space-x-2">
-                  <Label>Username</Label>
+                  <Label>Nome de usuário</Label>
 
                   <div className="text-xs">
                     {username !== profile.username ? (
                       usernameAvailable ? (
-                        <div className="text-green-500">AVAILABLE</div>
+                        <div className="text-green-500">Disponível</div>
                       ) : (
-                        <div className="text-red-500">UNAVAILABLE</div>
+                        <div className="text-red-500">Indisponível</div>
                       )
                     ) : null}
                   </div>
@@ -358,7 +358,7 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
                 <div className="relative">
                   <Input
                     className="pr-10"
-                    placeholder="Username..."
+                    placeholder="Nome de usuário..."
                     value={username}
                     onChange={e => {
                       setUsername(e.target.value)
@@ -388,7 +388,7 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
               </div>
 
               <div className="space-y-1">
-                <Label>Profile Image</Label>
+                <Label>Imagem de Perfil</Label>
 
                 <ImagePicker
                   src={profileImageSrc}
@@ -401,10 +401,10 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
               </div>
 
               <div className="space-y-1">
-                <Label>Chat Display Name</Label>
+                <Label>Nome de exibição no Chat</Label>
 
                 <Input
-                  placeholder="Chat display name..."
+                  placeholder="Nome de exibição no Chat..."
                   value={displayName}
                   onChange={e => setDisplayName(e.target.value)}
                   maxLength={PROFILE_DISPLAY_NAME_MAX}
@@ -413,14 +413,14 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
 
               <div className="space-y-1">
                 <Label className="text-sm">
-                  What would you like the AI to know about you to provide better
-                  responses?
+                  O que você gostaria que a IA soubesse sobre você para fornecer
+                  melhores respostas?
                 </Label>
 
                 <TextareaAutosize
                   value={profileInstructions}
                   onValueChange={setProfileInstructions}
-                  placeholder="Profile context... (optional)"
+                  placeholder="Contexto do perfil... (opcional)"
                   minRows={6}
                   maxRows={10}
                 />
@@ -734,7 +734,7 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
             <WithTooltip
               display={
                 <div>
-                  Download Lab[IA] 1.0 data as JSON. Import coming soon!
+                  Baixe os dados do Lab[IA] 1.0 como JSON. Importação em breve!
                 </div>
               }
               trigger={
@@ -749,11 +749,11 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
 
           <div className="ml-auto space-x-2">
             <Button variant="ghost" onClick={() => setIsOpen(false)}>
-              Cancel
+              Cancelar
             </Button>
 
             <Button ref={buttonRef} onClick={handleSave}>
-              Save
+              Salvar
             </Button>
           </div>
         </div>

@@ -79,7 +79,7 @@ export const AssistantToolSelect: FC<AssistantToolSelectProps> = ({
       >
         <Input
           ref={inputRef}
-          placeholder="Search tools..."
+          placeholder="Buscar ferramentas..."
           value={search}
           onChange={e => setSearch(e.target.value)}
           onKeyDown={e => e.stopPropagation()}

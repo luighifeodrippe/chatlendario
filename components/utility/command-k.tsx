@@ -51,10 +51,10 @@ export const CommandK: FC<CommandKProps> = ({}) => {
             <div className="space-y-2">
               <div>{content}</div>
 
-              <div>turn dark mode on.</div>
-              <div>find my sql chat</div>
-              <div>i need a new assistant</div>
-              <div>start a chat with my 2024 resolutions file</div>
+              <div>ative o modo nortuno.</div>
+              <div>encontre meu sql chat</div>
+              <div>preciso de um novo assistente</div>
+              <div>iniciar um chat com meu arquivo de resoluções de 2024</div>
 
               <div className="border-input relative flex min-h-[50px] w-full items-center justify-center rounded-xl border-2">
                 <TextareaAutosize
@@ -78,7 +78,10 @@ export const CommandK: FC<CommandKProps> = ({}) => {
               </div>
             </div>
           ) : (
-            <div>Add your OpenAI API key in the settings to unlock CMD+K.</div>
+            <div>
+              Adicione sua chave de API OpenAI nas configurações para
+              desbloquear CMD+K.
+            </div>
           )}
         </DialogContent>
       </Dialog>

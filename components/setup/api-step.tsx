@@ -73,7 +73,9 @@ export const APIStep: FC<APIStepProps> = ({
       <div className="mt-5 space-y-2">
         <Label className="flex items-center">
           <div>
-            {useAzureOpenai ? "Azure OpenAI API Key" : "OpenAI API Key"}
+            {useAzureOpenai
+              ? "Chave de API OpenAI do Azure"
+              : "Chave de API OpenAI"}
           </div>
 
           <Button
@@ -81,14 +83,16 @@ export const APIStep: FC<APIStepProps> = ({
             onClick={() => onUseAzureOpenaiChange(!useAzureOpenai)}
           >
             {useAzureOpenai
-              ? "Switch To Standard OpenAI"
-              : "Switch To Azure OpenAI"}
+              ? "Mudar para OpenAI padrão"
+              : "Mudar para Azure OpenAI"}
           </Button>
         </Label>
 
         <Input
           placeholder={
-            useAzureOpenai ? "Azure OpenAI API Key" : "OpenAI API Key"
+            useAzureOpenai
+              ? "Chave de API OpenAI do Azure"
+              : "Chave de API OpenAI"
           }
           type="password"
           value={useAzureOpenai ? azureOpenaiAPIKey : openaiAPIKey}

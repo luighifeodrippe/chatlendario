@@ -8,11 +8,11 @@ export const FinishStep: FC<FinishStepProps> = ({ displayName }) => {
   return (
     <div className="space-y-4">
       <div>
-        Welcome to Lab[IA]
+        Bem-vindo ao Lab[IA]
         {displayName.length > 0 ? `, ${displayName.split(" ")[0]}` : null}!
       </div>
 
-      <div>Click next to start chatting.</div>
+      <div>Clique em próximo para começar a conversar.</div>
     </div>
   )
 }
