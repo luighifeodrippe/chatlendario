@@ -19,31 +19,31 @@ export const ChatSecondaryButtons: FC<ChatSecondaryButtonsProps> = ({}) => {
             delayDuration={200}
             display={
               <div>
-                <div className="text-xl font-bold">Chat Info</div>
+                <div className="text-xl font-bold">Informações do Chat</div>
 
                 <div className="mx-auto mt-2 max-w-xs space-y-2 sm:max-w-sm md:max-w-md lg:max-w-lg">
-                  <div>Model: {selectedChat.model}</div>
+                  <div>Modelo: {selectedChat.model}</div>
                   <div>Prompt: {selectedChat.prompt}</div>
 
-                  <div>Temperature: {selectedChat.temperature}</div>
-                  <div>Context Length: {selectedChat.context_length}</div>
+                  <div>Temperatura: {selectedChat.temperature}</div>
+                  <div>Tamanho Contexto: {selectedChat.context_length}</div>
 
                   <div>
-                    Profile Context:{" "}
+                    Contexto de Perfil:{" "}
                     {selectedChat.include_profile_context
                       ? "Enabled"
                       : "Disabled"}
                   </div>
                   <div>
                     {" "}
-                    Workspace Instructions:{" "}
+                    Instruções de Workspace:{" "}
                     {selectedChat.include_workspace_instructions
                       ? "Enabled"
                       : "Disabled"}
                   </div>
 
                   <div>
-                    Embeddings Provider: {selectedChat.embeddings_provider}
+                    Provedor Embeddings: {selectedChat.embeddings_provider}
                   </div>
                 </div>
               </div>

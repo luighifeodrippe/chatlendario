@@ -52,7 +52,7 @@ export const UpdateChat: FC<UpdateChatProps> = ({ chat }) => {
 
       <DialogContent onKeyDown={handleKeyDown}>
         <DialogHeader>
-          <DialogTitle>Edit Chat</DialogTitle>
+          <DialogTitle>Editar Chat</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-1">

@@ -75,7 +75,7 @@ export const AssignWorkspaces: FC<AssignWorkspaces> = ({
       >
         <Input
           ref={inputRef}
-          placeholder="Search workspaces..."
+          placeholder="Buscar workspaces..."
           value={search}
           onChange={e => setSearch(e.target.value)}
           onKeyDown={e => e.stopPropagation()}
