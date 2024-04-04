@@ -175,7 +175,7 @@ const AdvancedContent: FC<AdvancedContentProps> = ({
           }
         />
 
-        <Label>Os chats incluem o contexto do perfil</Label>
+        <Label>Incluir contexto do perfil no chat</Label>
 
         {showTooltip && (
           <WithTooltip
@@ -203,7 +203,7 @@ const AdvancedContent: FC<AdvancedContentProps> = ({
           }
         />
 
-        <Label>Os chats incluem instruções sobre o workspace</Label>
+        <Label>Incluir instruções sobre o workspace</Label>
 
         {showTooltip && (
           <WithTooltip

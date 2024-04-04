@@ -189,7 +189,7 @@ export const CreateAssistant: FC<CreateAssistantProps> = ({
             />
           </div>
 
-          {checkIfModelIsToolCompatible() ? (
+          {/* {checkIfModelIsToolCompatible() ? (
             <div className="space-y-1">
               <Label>Ferramentas</Label>
 
@@ -202,7 +202,7 @@ export const CreateAssistant: FC<CreateAssistantProps> = ({
             <div className="pt-1 font-semibold">
               O modelo não é compatível com ferramentas.
             </div>
-          )}
+          )} */}
         </>
       )}
       onOpenChange={onOpenChange}

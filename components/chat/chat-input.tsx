@@ -240,7 +240,7 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
           textareaRef={chatInputRef}
           className="ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring text-md flex w-full resize-none rounded-md border-none bg-transparent px-14 py-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           placeholder={t(
-            `Pergunte qualquer coisa. Digite "@" para Assistentes, "/" para Prompts, "#" para Arquivos e "!" para Ferramentas.`
+            `Pergunte qualquer coisa. Digite "@" para Assistentes, "/" para Prompts e "#" para Arquivos.`
           )}
           onValueChange={handleInputChange}
           value={userInput}

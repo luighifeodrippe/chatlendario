@@ -25,10 +25,10 @@ export const PromptItem: FC<PromptItemProps> = ({ prompt }) => {
       renderInputs={() => (
         <>
           <div className="space-y-1">
-            <Label>Name</Label>
+            <Label>Nome</Label>
 
             <Input
-              placeholder="Prompt name..."
+              placeholder="Nome do Prompt..."
               value={name}
               onChange={e => setName(e.target.value)}
               maxLength={PROMPT_NAME_MAX}

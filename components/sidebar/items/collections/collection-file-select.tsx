@@ -61,7 +61,7 @@ export const CollectionFileSelect: FC<CollectionFileSelectProps> = ({
         >
           <div className="flex items-center">
             <div className="ml-2 flex items-center">
-              {selectedCollectionFiles.length} files selected
+              {selectedCollectionFiles.length} arquivos selecionados
             </div>
           </div>
 

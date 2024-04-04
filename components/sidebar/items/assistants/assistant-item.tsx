@@ -269,7 +269,7 @@ export const AssistantItem: FC<AssistantItemProps> = ({ assistant }) => {
             />
           </div>
 
-          <div className="space-y-1">
+          {/* <div className="space-y-1">
             <Label>Ferramentas</Label>
 
             <AssistantToolSelect
@@ -293,9 +293,9 @@ export const AssistantItem: FC<AssistantItemProps> = ({ assistant }) => {
               }
               onAssistantToolsSelect={tool =>
                 handleToolSelect(tool, renderState.setSelectedAssistantTools)
-              }
-            />
-          </div>
+              } */}
+          {/* />
+          </div> */}
         </>
       )}
     />
