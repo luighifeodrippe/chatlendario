@@ -65,14 +65,15 @@ export default function ResetPassword({
           required
         />
 
-        <SubmitButton
-          className="mb-2 rounded-md px-4 py-2 text-white transition duration-300 ease-in-out hover:bg-opacity-80"
-          style={{
-            backgroundColor: "#a8976a"
-          }}
-        >
+        <SubmitButton className="mb-2 rounded-md bg-blue-700 px-4 py-2 text-white">
           Confirmar
         </SubmitButton>
+
+        {searchParams?.message && (
+          <p className="bg-foreground/10 text-foreground mt-4 p-4 text-center">
+            {searchParams.message}
+          </p>
+        )}
       </form>
     </div>
   )
