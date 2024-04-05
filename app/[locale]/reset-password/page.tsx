@@ -43,9 +43,7 @@ export default function ResetPassword({
         <Input
           className="mb-2 rounded-md border bg-inherit px-4 py-2 transition duration-300 ease-in-out focus:outline-none focus:ring-0"
           style={{
-            borderColor: "#a8976a",
-            focusBorderColor: "#ceb881",
-            ringColor: "#ceb881"
+            borderColor: "#a8976a"
           }}
           type="password"
           name="newPassword"
@@ -59,9 +57,7 @@ export default function ResetPassword({
         <Input
           className="mb-2 rounded-md border bg-inherit px-4 py-2 transition duration-300 ease-in-out focus:outline-none focus:ring-0"
           style={{
-            borderColor: "#a8976a",
-            focusBorderColor: "#ceb881",
-            ringColor: "#ceb881"
+            borderColor: "#a8976a"
           }}
           type="password"
           name="confirmPassword"
@@ -72,21 +68,11 @@ export default function ResetPassword({
         <SubmitButton
           className="mb-2 rounded-md px-4 py-2 text-white transition duration-300 ease-in-out hover:bg-opacity-80"
           style={{
-            backgroundColor: "#a8976a",
-            hoverBackgroundColor: "#ceb881"
+            backgroundColor: "#a8976a"
           }}
         >
           Confirmar
         </SubmitButton>
-
-        {searchParams?.message && (
-          <p
-            className="mt-2 p-4 text-center transition-opacity duration-500 ease-in-out"
-            style={{ backgroundColor: "#f4f4f4", color: "#333" }}
-          >
-            {searchParams.message}
-          </p>
-        )}
       </form>
     </div>
   )
