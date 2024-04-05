@@ -1,5 +1,3 @@
-"use client"
-
 import { Brand } from "@/components/ui/brand"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -14,7 +12,18 @@ export default function ResetPassword({
 }: {
   searchParams: { message: string }
 }) {
-  const [passwordMatch, setPasswordMatch] = useState(true)
+  const [showPassword, setShowPassword] = useState(false)
+  const [passwordsMatch, setPasswordsMatch] = useState(false)
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = document.querySelector<HTMLInputElement>(
+      'input[name="newPassword"]'
+    )?.value
+    const confirmPassword = document.querySelector<HTMLInputElement>(
+      'input[name="confirmPassword"]'
+    )?.value
+    setPasswordsMatch(newPassword === confirmPassword)
+  }
 
   const handleResetPassword = async (formData: FormData) => {
     "use server"
@@ -40,15 +49,7 @@ export default function ResetPassword({
       return redirect(`/reset-password?message=${error.message}`)
     }
 
-    return redirect("/login?message=A atualização da senha foi bem-sucedida.")
-  }
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newPassword = document.querySelector<HTMLInputElement>(
-      'input[name="newPassword"]'
-    )?.value
-    const confirmPassword = e.target.value
-    setPasswordMatch(newPassword === confirmPassword)
+    return redirect("/login?message=A senha foi cadastrada com sucesso.")
   }
 
   return (
@@ -59,37 +60,55 @@ export default function ResetPassword({
       >
         <Brand />
 
-        <Label className="text-md mt-4" htmlFor="newPassword">
-          Cadastrar senha
+        <Label className="text-md mt-2" htmlFor="newPassword">
+          Senha
         </Label>
-        <Input
-          className="mb-3 rounded-md border bg-inherit px-4 py-2"
-          type="password"
-          name="newPassword"
-          placeholder="••••••••"
-          required
-        />
+        <div className="relative">
+          <Input
+            className="mb-1 rounded-md border bg-inherit px-4 py-2 pr-10"
+            type={showPassword ? "text" : "password"}
+            name="newPassword"
+            placeholder="••••••••"
+            required
+            onChange={handlePasswordChange}
+          />
+          <button
+            type="button"
+            className="absolute inset-y-0 right-0 px-3 text-gray-500"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? "Ocultar" : "Mostrar"}
+          </button>
+        </div>
 
-        <Label className="text-md mt-4" htmlFor="confirmPassword">
+        <Label className="text-md mt-2" htmlFor="confirmPassword">
           Confirmar senha
         </Label>
-        <Input
-          className="mb-3 rounded-md border bg-inherit px-4 py-2"
-          type="password"
-          name="confirmPassword"
-          placeholder="••••••••"
-          onChange={handlePasswordChange}
-          required
-        />
+        <div className="relative">
+          <Input
+            className="mb-1 rounded-md border bg-inherit px-4 py-2 pr-10"
+            type={showPassword ? "text" : "password"}
+            name="confirmPassword"
+            placeholder="••••••••"
+            required
+            onChange={handlePasswordChange}
+          />
+          <button
+            type="button"
+            className="absolute inset-y-0 right-0 px-3 text-gray-500"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? "Ocultar" : "Mostrar"}
+          </button>
+        </div>
 
-        {!passwordMatch && (
-          <p className="text-red-500">As senhas não coincidem.</p>
+        {passwordsMatch ? (
+          <p className="mt-1 text-green-500">As senhas coincidem.</p>
+        ) : (
+          <p className="mt-1 text-red-500">As senhas não coincidem.</p>
         )}
 
-        <SubmitButton
-          className="mb-2 rounded-md bg-blue-700 px-4 py-2 text-white"
-          disabled={!passwordMatch}
-        >
+        <SubmitButton className="mb-2 mt-4 rounded-md bg-blue-700 px-4 py-2 text-white">
           Confirmar
         </SubmitButton>
 
