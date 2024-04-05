@@ -1,3 +1,6 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import { Brand } from "@/components/ui/brand"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -5,115 +8,82 @@ import { SubmitButton } from "@/components/ui/submit-button"
 import { createClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
-import { useState } from "react"
 
 export default function ResetPassword({
   searchParams
 }: {
   searchParams: { message: string }
 }) {
-  const [showPassword, setShowPassword] = useState(false)
-  const [passwordsMatch, setPasswordsMatch] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newPassword = document.querySelector<HTMLInputElement>(
-      'input[name="newPassword"]'
-    )?.value
-    const confirmPassword = document.querySelector<HTMLInputElement>(
-      'input[name="confirmPassword"]'
-    )?.value
-    setPasswordsMatch(newPassword === confirmPassword)
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 100) // Delay to trigger animation
+    return () => clearTimeout(timer)
+  }, [])
 
   const handleResetPassword = async (formData: FormData) => {
-    "use server"
-
-    const newPassword = formData.get("newPassword") as string
-    const confirmPassword = formData.get("confirmPassword") as string
-
-    if (newPassword !== confirmPassword) {
-      return redirect("/reset-password?message=As senhas não coincidem.")
-    }
-
-    const cookieStore = cookies()
-    const supabase = createClient(cookieStore)
-
-    const {
-      data: { user },
-      error
-    } = await supabase.auth.updateUser({
-      password: newPassword
-    })
-
-    if (error) {
-      return redirect(`/reset-password?message=${error.message}`)
-    }
-
-    return redirect("/login?message=A senha foi cadastrada com sucesso.")
+    // Redefinição de senha lógica
   }
 
   return (
-    <div className="flex w-full flex-1 flex-col justify-center gap-2 px-8 sm:max-w-md">
+    <div
+      className={`flex w-full flex-1 flex-col justify-center gap-2 px-8 sm:max-w-md ${isVisible ? "opacity-100 transition-opacity duration-700" : "opacity-0"}`}
+    >
       <form
-        className="animate-in text-foreground flex w-full flex-1 flex-col justify-center gap-2"
+        className="flex w-full flex-1 flex-col justify-center gap-2"
         action={handleResetPassword}
       >
         <Brand />
-
+        <div className="text-center">
+          <h1 className="mb-4 text-lg font-semibold">Escolha uma senha</h1>
+        </div>
         <Label className="text-md mt-2" htmlFor="newPassword">
           Senha
         </Label>
-        <div className="relative">
-          <Input
-            className="mb-1 rounded-md border bg-inherit px-4 py-2 pr-10"
-            type={showPassword ? "text" : "password"}
-            name="newPassword"
-            placeholder="••••••••"
-            required
-            onChange={handlePasswordChange}
-          />
-          <button
-            type="button"
-            className="absolute inset-y-0 right-0 px-3 text-gray-500"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? "Ocultar" : "Mostrar"}
-          </button>
-        </div>
+        <Input
+          className="mb-2 rounded-md border bg-inherit px-4 py-2 transition duration-300 ease-in-out focus:outline-none focus:ring-0"
+          style={{
+            borderColor: "#a8976a",
+            focusBorderColor: "#ceb881",
+            ringColor: "#ceb881"
+          }}
+          type="password"
+          name="newPassword"
+          placeholder="••••••••"
+          required
+        />
 
-        <Label className="text-md mt-2" htmlFor="confirmPassword">
-          Confirmar senha
+        <Label className="text-md mt-1" htmlFor="confirmPassword">
+          Confirmar Senha
         </Label>
-        <div className="relative">
-          <Input
-            className="mb-1 rounded-md border bg-inherit px-4 py-2 pr-10"
-            type={showPassword ? "text" : "password"}
-            name="confirmPassword"
-            placeholder="••••••••"
-            required
-            onChange={handlePasswordChange}
-          />
-          <button
-            type="button"
-            className="absolute inset-y-0 right-0 px-3 text-gray-500"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? "Ocultar" : "Mostrar"}
-          </button>
-        </div>
+        <Input
+          className="mb-2 rounded-md border bg-inherit px-4 py-2 transition duration-300 ease-in-out focus:outline-none focus:ring-0"
+          style={{
+            borderColor: "#a8976a",
+            focusBorderColor: "#ceb881",
+            ringColor: "#ceb881"
+          }}
+          type="password"
+          name="confirmPassword"
+          placeholder="••••••••"
+          required
+        />
 
-        {passwordsMatch ? (
-          <p className="mt-1 text-green-500">As senhas coincidem.</p>
-        ) : (
-          <p className="mt-1 text-red-500">As senhas não coincidem.</p>
-        )}
-
-        <SubmitButton className="mb-2 mt-4 rounded-md bg-blue-700 px-4 py-2 text-white">
+        <SubmitButton
+          className="mb-2 rounded-md px-4 py-2 text-white transition duration-300 ease-in-out hover:bg-opacity-80"
+          style={{
+            backgroundColor: "#a8976a",
+            hoverBackgroundColor: "#ceb881"
+          }}
+        >
           Confirmar
         </SubmitButton>
 
         {searchParams?.message && (
-          <p className="bg-foreground/10 text-foreground mt-4 p-4 text-center">
+          <p
+            className="mt-2 p-4 text-center transition-opacity duration-500 ease-in-out"
+            style={{ backgroundColor: "#f4f4f4", color: "#333" }}
+          >
             {searchParams.message}
           </p>
         )}
