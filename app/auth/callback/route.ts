@@ -7,6 +7,10 @@ export async function GET(request: Request) {
   const code = requestUrl.searchParams.get("code")
   const next = requestUrl.searchParams.get("next")
 
+  if (next === "/reset-password") {
+    return NextResponse.redirect(`${requestUrl.origin}/reset-password`)
+  }
+
   if (code) {
     const cookieStore = cookies()
     const supabase = createClient(cookieStore)
