@@ -1,10 +1,10 @@
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
+  enabled: process.env.ANALYZE === "true"
+})
 
 const withPWA = require("next-pwa")({
-  dest: "public",
-});
+  dest: "public"
+})
 
 module.exports = withBundleAnalyzer(
   withPWA({
@@ -12,13 +12,22 @@ module.exports = withBundleAnalyzer(
     images: {
       unoptimized: true,
       remotePatterns: [
-        { protocol: "http", hostname: "localhost" },
-        { protocol: "http", hostname: "127.0.0.1" },
-        { protocol: "https", hostname: "**" },
-      ],
+        {
+          protocol: "http",
+          hostname: "localhost"
+        },
+        {
+          protocol: "http",
+          hostname: "127.0.0.1"
+        },
+        {
+          protocol: "https",
+          hostname: "**"
+        }
+      ]
     },
     experimental: {
-      serverComponentsExternalPackages: ["sharp", "onnxruntime-node"],
-    },
+      serverComponentsExternalPackages: ["sharp", "onnxruntime-node"]
+    }
   })
-);
+)
