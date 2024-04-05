@@ -10,18 +10,7 @@ export async function GET(request: Request) {
   if (code) {
     const cookieStore = cookies()
     const supabase = createClient(cookieStore)
-
-    // Verifica se o código é um Magic Link
-    if (code.startsWith("magiclink")) {
-      await supabase.auth.verifyOtp({
-        type: "magiclink",
-        email: "", // O email será extraído automaticamente do código do Magic Link
-        token: code
-      })
-    } else {
-      // Troca o código por uma sessão normalmente
-      await supabase.auth.exchangeCodeForSession(code)
-    }
+    await supabase.auth.exchangeCodeForSession(code)
   }
 
   if (next) {
