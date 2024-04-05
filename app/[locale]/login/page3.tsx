@@ -124,11 +124,7 @@ export default async function Login({
 
     const { error } = await supabase.auth.signUp({
       email,
-      password,
-      options: {
-        // USE IF YOU WANT TO SEND EMAIL VERIFICATION, ALSO CHANGE TOML FILE
-        // emailRedirectTo: `${origin}/auth/callback`
-      }
+      password
     })
 
     if (error) {
@@ -137,9 +133,6 @@ export default async function Login({
     }
 
     return redirect("/setup")
-
-    // USE IF YOU WANT TO SEND EMAIL VERIFICATION, ALSO CHANGE TOML FILE
-    // return redirect("/login?message=Check email to continue sign in process")
   }
 
   const handleResetPassword = async (formData: FormData) => {
@@ -159,6 +152,30 @@ export default async function Login({
     }
 
     return redirect("/login?message=Check email to reset password")
+  }
+
+  const signInWithMagicLink = async (formData: FormData) => {
+    "use server"
+
+    const email = formData.get("email") as string
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+
+    const origin = headers().get("origin")
+    const emailRedirectTo = `${origin}/auth/callback?next=/`
+
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo
+      }
+    })
+
+    if (error) {
+      return redirect(`/login?message=${error.message}`)
+    }
+
+    return redirect("/login?message=Check your email for the Magic Link")
   }
 
   return (
@@ -193,12 +210,12 @@ export default async function Login({
           Conectar
         </SubmitButton>
 
-        {/* <SubmitButton
-          formAction={signUp}
+        <SubmitButton
+          formAction={signInWithMagicLink}
           className="border-foreground/20 mb-2 rounded-md border px-4 py-2"
         >
-          Sign Up
-        </SubmitButton> */}
+          Sign In with Magic Link
+        </SubmitButton>
 
         <div className="text-muted-foreground mt-1 flex justify-center text-sm">
           <span className="mr-1">Esqueceu sua senha?</span>

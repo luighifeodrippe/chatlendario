@@ -35,7 +35,7 @@ export default function ResetPassword({
       >
         <Brand />
         <div className="text-center">
-          <h1 className="mb-4 text-lg font-semibold">Escolha uma senha</h1>
+          <h1 className="mb-4 text-lg font-semibold">Defina uma senha</h1>
         </div>
         <Label className="text-md mt-2" htmlFor="newPassword">
           Senha
