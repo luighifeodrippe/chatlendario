@@ -221,7 +221,7 @@ const AdvancedContent: FC<AdvancedContentProps> = ({
         )}
       </div>
 
-      <div className="mt-5">
+      {/* <div className="mt-5">
         <Label>Provedor de Embeddings</Label>
 
         <Select
@@ -247,7 +247,7 @@ const AdvancedContent: FC<AdvancedContentProps> = ({
             )}
           </SelectContent>
         </Select>
-      </div>
+      </div> */}
     </div>
   )
 }

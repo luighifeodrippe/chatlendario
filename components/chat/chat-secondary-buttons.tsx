@@ -42,9 +42,9 @@ export const ChatSecondaryButtons: FC<ChatSecondaryButtonsProps> = ({}) => {
                       : "Disabled"}
                   </div>
 
-                  <div>
+                  {/* <div>
                     Provedor Embeddings: {selectedChat.embeddings_provider}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             }

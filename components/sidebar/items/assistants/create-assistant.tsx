@@ -180,14 +180,14 @@ export const CreateAssistant: FC<CreateAssistantProps> = ({
             useAdvancedDropdown={true}
           />
 
-          <div className="space-y-1 pt-2">
+          {/* <div className="space-y-1 pt-2">
             <Label>Arquivos & Coleções</Label>
 
             <AssistantRetrievalSelect
               selectedAssistantRetrievalItems={selectedAssistantRetrievalItems}
               onAssistantRetrievalItemsSelect={handleRetrievalItemSelect}
             />
-          </div>
+          </div> */}
 
           {/* {checkIfModelIsToolCompatible() ? (
             <div className="space-y-1">

@@ -207,7 +207,7 @@ export const AssistantItem: FC<AssistantItemProps> = ({ assistant }) => {
             useAdvancedDropdown={true}
           />
 
-          <div className="space-y-1 pt-2">
+          {/* <div className="space-y-1 pt-2">
             <Label>Arquivos & Coleções</Label>
 
             <AssistantRetrievalSelect
@@ -267,7 +267,7 @@ export const AssistantItem: FC<AssistantItemProps> = ({ assistant }) => {
                     )
               }
             />
-          </div>
+          </div> */}
 
           {/* <div className="space-y-1">
             <Label>Ferramentas</Label>
