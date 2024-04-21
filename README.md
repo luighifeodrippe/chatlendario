@@ -1,5 +1,5 @@
 # Lab[IA]
-Teste
+Teste 2
 The open-source AI chat app for everyone.
 
 <img src="./public/readme/screenshot.png" alt="Lab[IA]" width="600">
