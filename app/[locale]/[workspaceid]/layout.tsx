@@ -19,7 +19,7 @@ import { LLMID } from "@/types"
 import { useParams, useRouter } from "next/navigation"
 import { ReactNode, useContext, useEffect, useState } from "react"
 import Loading from "../loading"
-
+import { SpeedInsights } from "@vercel/speed-insights/next"
 interface WorkspaceLayoutProps {
   children: ReactNode
 }
@@ -88,72 +88,45 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   }, [workspaceId])
 
   const fetchWorkspaceData = async (workspaceId: string) => {
-    setLoading(true)
+    // for (const assistant of assistantData.assistants) {
+    //   let url = ""
+
+    //   if (assistant.image_path) {
+    //     url = (await getAssistantImageFromStorage(assistant.image_path)) || ""
+    //   }
+
+    //   if (url) {
+    //     const response = await fetch(url)
+    //     const blob = await response.blob()
+    //     const base64 = await convertBlobToBase64(blob)
+
+    //     setAssistantImages(prev => [
+    //       ...prev,
+    //       {
+    //         assistantId: assistant.id,
+    //         path: assistant.image_path,
+    //         base64,
+    //         url
+    //       }
+    //     ])
+    //   } else {
+    //     setAssistantImages(prev => [
+    //       ...prev,
+    //       {
+    //         assistantId: assistant.id,
+    //         path: assistant.image_path,
+    //         base64: "",
+    //         url
+    //       }
+    //     ])
+    //   }
+    // }
 
     const workspace = await getWorkspaceById(workspaceId)
     setSelectedWorkspace(workspace)
 
     const assistantData = await getAssistantWorkspacesByWorkspaceId(workspaceId)
     setAssistants(assistantData.assistants)
-
-    for (const assistant of assistantData.assistants) {
-      let url = ""
-
-      if (assistant.image_path) {
-        url = (await getAssistantImageFromStorage(assistant.image_path)) || ""
-      }
-
-      if (url) {
-        const response = await fetch(url)
-        const blob = await response.blob()
-        const base64 = await convertBlobToBase64(blob)
-
-        setAssistantImages(prev => [
-          ...prev,
-          {
-            assistantId: assistant.id,
-            path: assistant.image_path,
-            base64,
-            url
-          }
-        ])
-      } else {
-        setAssistantImages(prev => [
-          ...prev,
-          {
-            assistantId: assistant.id,
-            path: assistant.image_path,
-            base64: "",
-            url
-          }
-        ])
-      }
-    }
-
-    const chats = await getChatsByWorkspaceId(workspaceId)
-    setChats(chats)
-
-    const collectionData =
-      await getCollectionWorkspacesByWorkspaceId(workspaceId)
-    setCollections(collectionData.collections)
-
-    const folders = await getFoldersByWorkspaceId(workspaceId)
-    setFolders(folders)
-
-    const fileData = await getFileWorkspacesByWorkspaceId(workspaceId)
-    setFiles(fileData.files)
-
-    const presetData = await getPresetWorkspacesByWorkspaceId(workspaceId)
-    setPresets(presetData.presets)
-
-    const promptData = await getPromptWorkspacesByWorkspaceId(workspaceId)
-    setPrompts(promptData.prompts)
-
-    const toolData = await getToolWorkspacesByWorkspaceId(workspaceId)
-    setTools(toolData.tools)
-
-    const modelData = await getModelWorkspacesByWorkspaceId(workspaceId)
-    setModels(modelData.models)
 
     setChatSettings({
       model: (workspace?.default_model || "gpt-4-1106-preview") as LLMID,
@@ -168,6 +141,67 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
       embeddingsProvider:
         (workspace?.embeddings_provider as "openai" | "local") || "openai"
     })
+    const assistantImagePromises = assistantData.assistants.map(
+      async assistant => {
+        let url = ""
+        if (assistant.image_path) {
+          url = (await getAssistantImageFromStorage(assistant.image_path)) || ""
+        }
+
+        if (url) {
+          const response = await fetch(url)
+          const blob = await response.blob()
+          const base64 = await convertBlobToBase64(blob)
+
+          return {
+            assistantId: assistant.id,
+            path: assistant.image_path,
+            base64,
+            url
+          }
+        } else {
+          return {
+            assistantId: assistant.id,
+            path: assistant.image_path,
+            base64: "",
+            url
+          }
+        }
+      }
+    )
+    Promise.all([
+      getChatsByWorkspaceId(workspaceId),
+      getCollectionWorkspacesByWorkspaceId(workspaceId),
+      getFoldersByWorkspaceId(workspaceId),
+      getFileWorkspacesByWorkspaceId(workspaceId),
+      getPresetWorkspacesByWorkspaceId(workspaceId),
+      getPromptWorkspacesByWorkspaceId(workspaceId),
+      getToolWorkspacesByWorkspaceId(workspaceId),
+      getModelWorkspacesByWorkspaceId(workspaceId)
+    ]).then(
+      ([
+        chats,
+        collectionData,
+        folders,
+        fileData,
+        presetData,
+        promptData,
+        toolData,
+        modelData
+      ]) => {
+        setChats(chats)
+        setCollections(collectionData.collections)
+        setFolders(folders)
+        setFiles(fileData.files)
+        setPresets(presetData.presets)
+        setPrompts(promptData.prompts)
+        setTools(toolData.tools)
+        setModels(modelData.models)
+      }
+    )
+    setLoading(true)
+    const assistantImages = await Promise.all(assistantImagePromises)
+    setAssistantImages(assistantImages)
 
     setLoading(false)
   }
@@ -176,5 +210,10 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     return <Loading />
   }
 
-  return <Dashboard>{children}</Dashboard>
+  return (
+    <>
+      <SpeedInsights />
+      <Dashboard>{children}</Dashboard>
+    </>
+  )
 }
