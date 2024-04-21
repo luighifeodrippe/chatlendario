@@ -19,7 +19,7 @@ import { LLMID } from "@/types"
 import { useParams, useRouter } from "next/navigation"
 import { ReactNode, useContext, useEffect, useState } from "react"
 import Loading from "../loading"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+// import { SpeedInsights } from "@vercel/speed-insights/next"
 interface WorkspaceLayoutProps {
   children: ReactNode
 }
@@ -212,7 +212,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
 
   return (
     <>
-      <SpeedInsights />
+      {/* <SpeedInsights /> */}
       <Dashboard>{children}</Dashboard>
     </>
   )
