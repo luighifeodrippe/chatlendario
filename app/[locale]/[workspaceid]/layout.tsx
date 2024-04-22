@@ -31,6 +31,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   const workspaceId = params.workspaceid as string
 
   const {
+    chatSettings,
     setChatSettings,
     setAssistants,
     setAssistantImages,
@@ -88,6 +89,8 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   }, [workspaceId])
 
   const fetchWorkspaceData = async (workspaceId: string) => {
+    setLoading(true)
+
     // for (const assistant of assistantData.assistants) {
     //   let url = ""
 
@@ -125,8 +128,79 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     const workspace = await getWorkspaceById(workspaceId)
     setSelectedWorkspace(workspace)
 
-    const assistantData = await getAssistantWorkspacesByWorkspaceId(workspaceId)
+    const [
+      workspaceData,
+      assistantData,
+      chats,
+      collectionData,
+      folders,
+      fileData,
+      presetData,
+      promptData,
+      modelData
+    ] = await Promise.all([
+      getWorkspaceById(workspaceId),
+      getAssistantWorkspacesByWorkspaceId(workspaceId),
+      getChatsByWorkspaceId(workspaceId),
+      getCollectionWorkspacesByWorkspaceId(workspaceId),
+      getFoldersByWorkspaceId(workspaceId),
+      getFileWorkspacesByWorkspaceId(workspaceId),
+      getPresetWorkspacesByWorkspaceId(workspaceId),
+      getPromptWorkspacesByWorkspaceId(workspaceId),
+      getModelWorkspacesByWorkspaceId(workspaceId)
+    ])
+
+    // const assistantData = await getAssistantWorkspacesByWorkspaceId(workspaceId)
+    setSelectedWorkspace(workspace)
     setAssistants(assistantData.assistants)
+    // console.log(chats)
+    setChats(chats)
+    setCollections(collectionData.collections)
+    setFolders(folders)
+    setFiles(fileData.files)
+    setPresets(presetData.presets)
+    setPrompts(promptData.prompts)
+    setModels(modelData.models)
+
+    const parallelize = async (array: any, callback: any) => {
+      const promises = array.map((item: any) => callback(item))
+      return Promise.all(promises)
+    }
+
+    // await parallelize(
+    //   [...assistantData.assistants],
+    //   async (assistant: any) => {
+    //     let url = assistant.image_path
+    //       ? (await getAssistantImageFromStorage(assistant.image_path))
+    //       : ""
+
+    //     if (url) {
+    //       // const response = await fetch(url)
+    //       // const blob = await response.blob()
+    //       // const base64 = await convertBlobToBase64(blob)
+
+    //       setAssistantImages(prev => [
+    //         ...prev,
+    //         {
+    //           assistantId: assistant.id,
+    //           path: assistant.image_path,
+    //           base64: "",
+    //           url
+    //         }
+    //       ])
+    //     } else {
+    //       setAssistantImages(prev => [
+    //         ...prev,
+    //         {
+    //           assistantId: assistant.id,
+    //           path: assistant.image_path,
+    //           base64: "",
+    //           url
+    //         }
+    //       ])
+    //     }
+    //   }
+    // )
 
     setChatSettings({
       model: (workspace?.default_model || "gpt-4-1106-preview") as LLMID,
@@ -141,8 +215,11 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
       embeddingsProvider:
         (workspace?.embeddings_provider as "openai" | "local") || "openai"
     })
-    const assistantImagePromises = assistantData.assistants.map(
-      async assistant => {
+    setLoading(false)
+
+    const assistantImages = await parallelize(
+      assistantData.assistants,
+      async (assistant: any) => {
         let url = ""
         if (assistant.image_path) {
           url = (await getAssistantImageFromStorage(assistant.image_path)) || ""
@@ -169,41 +246,8 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
         }
       }
     )
-    Promise.all([
-      getChatsByWorkspaceId(workspaceId),
-      getCollectionWorkspacesByWorkspaceId(workspaceId),
-      getFoldersByWorkspaceId(workspaceId),
-      getFileWorkspacesByWorkspaceId(workspaceId),
-      getPresetWorkspacesByWorkspaceId(workspaceId),
-      getPromptWorkspacesByWorkspaceId(workspaceId),
-      getToolWorkspacesByWorkspaceId(workspaceId),
-      getModelWorkspacesByWorkspaceId(workspaceId)
-    ]).then(
-      ([
-        chats,
-        collectionData,
-        folders,
-        fileData,
-        presetData,
-        promptData,
-        toolData,
-        modelData
-      ]) => {
-        setChats(chats)
-        setCollections(collectionData.collections)
-        setFolders(folders)
-        setFiles(fileData.files)
-        setPresets(presetData.presets)
-        setPrompts(promptData.prompts)
-        setTools(toolData.tools)
-        setModels(modelData.models)
-      }
-    )
-    setLoading(true)
-    const assistantImages = await Promise.all(assistantImagePromises)
-    setAssistantImages(assistantImages)
 
-    setLoading(false)
+    setAssistantImages(assistantImages)
   }
 
   if (loading) {
