@@ -60,8 +60,8 @@ export const ChatSettingsForm: FC<ChatSettingsFormProps> = ({
             onChangeChatSettings({ ...chatSettings, prompt })
           }}
           value={chatSettings.prompt}
-          minRows={3}
-          maxRows={6}
+          minRows={6}
+          maxRows={12}
         />
       </div>
 
