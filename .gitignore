@@ -35,11 +35,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
+tsconfig.json
 .VSCodeCounter
 tool-schemas
 custom-prompts
-
+worker-development.js
 sw.js
 sw.js.map
 workbox-*.js

@@ -57,13 +57,13 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
           onContentTypeChange={onContentTypeChange}
         />
 
-{/*         <SidebarSwitchItem
+        {/*         <SidebarSwitchItem
           icon={<IconBooks size={SIDEBAR_ICON_SIZE} />}
           contentType="collections"
           onContentTypeChange={onContentTypeChange}
         />
  */}
-{/*         <SidebarSwitchItem
+        {/*         <SidebarSwitchItem
           icon={<IconAdjustmentsHorizontal size={SIDEBAR_ICON_SIZE} />}
           contentType="presets"
           onContentTypeChange={onContentTypeChange}
