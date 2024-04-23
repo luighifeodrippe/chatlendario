@@ -5,9 +5,9 @@ import Image from "next/image"
 import { FC, useContext, useEffect, useRef } from "react"
 import { usePromptAndCommand } from "./chat-hooks/use-prompt-and-command"
 
-interface AssistantPickerProps { }
+interface AssistantPickerProps {}
 
-export const AssistantPicker: FC<AssistantPickerProps> = ({ }) => {
+export const AssistantPicker: FC<AssistantPickerProps> = ({}) => {
   const {
     assistants,
     assistantImages,
