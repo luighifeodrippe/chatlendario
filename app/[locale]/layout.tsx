@@ -10,6 +10,7 @@ import { Inter } from "next/font/google"
 import { cookies } from "next/headers"
 import { ReactNode } from "react"
 import "./globals.css"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ["latin"] })
 const APP_NAME = "Lab[IA]"
@@ -101,6 +102,7 @@ export default async function RootLayout({
             </div>
           </TranslationsProvider>
         </Providers>
+        <SpeedInsights />
       </body>
     </html>
   )
