@@ -105,7 +105,13 @@ export const fetchOpenRouterModels = async () => {
       })
     )
 
-    return openRouterModels
+    const idToRemove = "anthropic/claude-3-opus"
+
+    const filteredOpenRouterModels = openRouterModels.filter(
+      (model: { id: string }) => model.id !== idToRemove
+    )
+
+    return filteredOpenRouterModels
   } catch (error) {
     console.error(": Erro ao buscar modelos do Open Router" + error)
     toast.error("Erro ao buscar modelos do Open Router: " + error)
