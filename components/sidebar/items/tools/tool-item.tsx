@@ -151,7 +151,7 @@ export const ToolItem: FC<ToolItemProps> = ({ tool }) => {
                     .then(() => setSchemaError("")) // Clear error if validation is successful
                     .catch(error => setSchemaError(error.message)) // Set specific validation error message
                 } catch (error) {
-                  setSchemaError("Formato JSON inválido") // Set error for invalid JSON format
+                  setSchemaError("Formato JSON inválido.") // Set error for invalid JSON format
                 }
               }}
               minRows={15}

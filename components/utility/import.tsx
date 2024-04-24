@@ -188,7 +188,7 @@ export const Import: FC<ImportProps> = ({}) => {
       ])
     })
 
-    toast.success("Data imported successfully!")
+    toast.success("Dados importados corretamente!")
 
     setImportList([])
     setImportCounts({

@@ -17,15 +17,15 @@ interface OpenAPIData {
 
 export const validateOpenAPI = async (openapiSpec: any) => {
   if (!openapiSpec.info) {
-    throw new Error("('info'): field required")
+    throw new Error("('info'): campo exigido.")
   }
 
   if (!openapiSpec.info.title) {
-    throw new Error("('info', 'title'): field required")
+    throw new Error("('info', 'title'): campo exigido.")
   }
 
   if (!openapiSpec.info.version) {
-    throw new Error("('info', 'version'): field required")
+    throw new Error("('info', 'version'): campo exigido.")
   }
 
   if (
@@ -33,16 +33,16 @@ export const validateOpenAPI = async (openapiSpec: any) => {
     !openapiSpec.servers.length ||
     !openapiSpec.servers[0].url
   ) {
-    throw new Error("Could not find a valid URL in `servers`")
+    throw new Error("Não foi possível encontrar uma URL válida em `servers`")
   }
 
   if (!openapiSpec.paths || Object.keys(openapiSpec.paths).length === 0) {
-    throw new Error("No paths found in the OpenAPI spec")
+    throw new Error("Nenhum caminho encontrado na especificação da OpenAPI")
   }
 
   Object.keys(openapiSpec.paths).forEach(path => {
     if (!path.startsWith("/")) {
-      throw new Error(`Path ${path} does not start with a slash; skipping`)
+      throw new Error(`O caminho ${path} não começa com barra; pulando`)
     }
   })
 
@@ -51,7 +51,7 @@ export const validateOpenAPI = async (openapiSpec: any) => {
       Object.values(methods).some((spec: any) => !spec.operationId)
     )
   ) {
-    throw new Error("Some methods are missing operationId")
+    throw new Error("Alguns métodos não possuem o OperationId")
   }
 
   if (
@@ -62,7 +62,7 @@ export const validateOpenAPI = async (openapiSpec: any) => {
     )
   ) {
     throw new Error(
-      "Some methods with a requestBody are missing requestBody.content"
+      "Alguns métodos com corpo de requisição estão faltando requestBody.content"
     )
   }
 
@@ -76,16 +76,18 @@ export const validateOpenAPI = async (openapiSpec: any) => {
               .length === 0
           ) {
             throw new Error(
-              `In context=('paths', '${Object.keys(methods)[0]}', '${
+              `No contexto=('paths', '${Object.keys(methods)[0]}', '${
                 Object.keys(spec)[0]
-              }', 'requestBody', 'content', 'application/json', 'schema'), object schema missing properties`
+              }', 'requestBody', 'content', 'application/json', 'schema'), existem propriedades ausentes no esquema do objeto`
             )
           }
         }
       })
     )
   ) {
-    throw new Error("Some object schemas are missing properties")
+    throw new Error(
+      "Alguns esquemas de objetos não possuem propriedades ou possuem propriedades ausentes."
+    )
   }
 }
 

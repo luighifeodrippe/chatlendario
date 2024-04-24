@@ -55,7 +55,7 @@ export async function POST(request: Request) {
           requestInBody: convertedSchema.routes[0].requestInBody
         })
       } catch (error: any) {
-        console.error("Error converting schema", error)
+        console.error("Erro ao converter schema.", error)
       }
     }
 
@@ -90,7 +90,9 @@ export async function POST(request: Request) {
         )
 
         if (!schemaDetail) {
-          throw new Error(`Function ${functionName} not found in any schema`)
+          throw new Error(
+            `Função ${functionName} não encontrada em nenhum schema.`
+          )
         }
 
         const pathTemplate = Object.keys(schemaDetail.routeMap).find(
@@ -98,21 +100,25 @@ export async function POST(request: Request) {
         )
 
         if (!pathTemplate) {
-          throw new Error(`Path for function ${functionName} not found`)
+          throw new Error(
+            `Caminho para a função ${functionName} não encontrada.`
+          )
         }
 
         const path = pathTemplate.replace(/:(\w+)/g, (_, paramName) => {
           const value = parsedArgs.parameters[paramName]
           if (!value) {
             throw new Error(
-              `Parameter ${paramName} not found for function ${functionName}`
+              `Parâmetro ${paramName} não encontrado para a função ${functionName}.`
             )
           }
           return encodeURIComponent(value)
         })
 
         if (!path) {
-          throw new Error(`Path for function ${functionName} not found`)
+          throw new Error(
+            `Caminho para a função ${functionName} não encontrado.`
+          )
         }
 
         // Determine if the request should be in the body or as a query
@@ -209,7 +215,7 @@ export async function POST(request: Request) {
     return new StreamingTextResponse(stream)
   } catch (error: any) {
     console.error(error)
-    const errorMessage = error.error?.message || "An unexpected error occurred"
+    const errorMessage = error.error?.message || "Ocorreu um erro inesperado."
     const errorCode = error.status || 500
     return new Response(JSON.stringify({ message: errorMessage }), {
       status: errorCode
