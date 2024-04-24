@@ -89,7 +89,14 @@ export const fetchOpenRouterModels = async () => {
 
     const { data } = await response.json()
 
-    const openRouterModels = data.map(
+    // const removedModels = process.env.REMOVED_OPEN_ROUTER_MODELS?.split(',') || [] //Adicionar variável de ambiente e remover linha abaixo
+    const removedModels = "anthropic/claude-3-opus:beta,anthropic/claude-3-opus"
+
+    const openRouterModelsFiltered = data.filter(
+      (model: { id: string }) => !removedModels.includes(model.id)
+    )
+
+    const openRouterModels = openRouterModelsFiltered.map(
       (model: {
         id: string
         name: string
