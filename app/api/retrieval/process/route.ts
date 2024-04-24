@@ -95,10 +95,7 @@ export async function POST(req: Request) {
         try {
           return await generateLocalEmbedding(chunk.content)
         } catch (error) {
-          console.error(
-            `Erro ao gerar embedding para o chunk: ${chunk}.`,
-            error
-          )
+          console.error(`Error generating embedding for chunk: ${chunk}`, error)
 
           return null
         }
@@ -135,7 +132,7 @@ export async function POST(req: Request) {
       status: 200
     })
   } catch (error: any) {
-    const errorMessage = error.error?.message || "Ocorreu um erro inesperado."
+    const errorMessage = error.error?.message || "An unexpected error occurred"
     const errorCode = error.status || 500
     return new Response(JSON.stringify({ message: errorMessage }), {
       status: errorCode

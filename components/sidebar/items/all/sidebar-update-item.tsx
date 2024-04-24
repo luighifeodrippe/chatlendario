@@ -600,9 +600,9 @@ export const SidebarUpdateItem: FC<SidebarUpdateItemProps> = ({
 
       setIsOpen(false)
 
-      toast.success(`${contentType.slice(0, -1)} atualizado!`)
+      toast.success(`${contentType.slice(0, -1)} updated successfully`)
     } catch (error) {
-      toast.error(`Erro ao atualizar ${contentType.slice(0, -1)}. ${error}.`)
+      toast.error(`Error updating ${contentType.slice(0, -1)}. ${error}`)
     }
   }
 

@@ -74,33 +74,34 @@ export async function POST(request: NextRequest) {
         const stream = AnthropicStream(response)
         return new StreamingTextResponse(stream)
       } catch (error: any) {
-        console.error("Erro ao analisar a resposta da Anthropic API:", error)
+        console.error("Error parsing Anthropic API response:", error)
         return new NextResponse(
           JSON.stringify({
-            message: "Ocorreu um erro ao analisar a resposta da Anthropic API:"
+            message:
+              "An error occurred while parsing the Anthropic API response"
           }),
           { status: 500 }
         )
       }
     } catch (error: any) {
-      console.error("Erro ao chamar a Anthropic API:", error)
+      console.error("Error calling Anthropic API:", error)
       return new NextResponse(
         JSON.stringify({
-          message: "Ocorreu um erro ao chamar a Anthropic API."
+          message: "An error occurred while calling the Anthropic API"
         }),
         { status: 500 }
       )
     }
   } catch (error: any) {
-    let errorMessage = error.message || "Ocorreu um erro inesperado.."
+    let errorMessage = error.message || "An unexpected error occurred"
     const errorCode = error.status || 500
 
-    if (errorMessage.toLowerCase().includes("chave de api ausente")) {
+    if (errorMessage.toLowerCase().includes("api key not found")) {
       errorMessage =
-        "Chave de API ausente paraAnthropic API. Por favor configure-a em seu perfil."
+        "Anthropic API Key not found. Please set it in your profile settings."
     } else if (errorCode === 401) {
       errorMessage =
-        "A chave da Anthropic API está incorreta. Por favor ajuste nas configurações do seu perfil."
+        "Anthropic API Key is incorrect. Please fix it in your profile settings."
     }
 
     return new NextResponse(JSON.stringify({ message: errorMessage }), {

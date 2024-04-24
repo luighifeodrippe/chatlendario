@@ -31,23 +31,23 @@ export const validateChatSettings = (
   messageContent: string
 ) => {
   if (!chatSettings) {
-    throw new Error("Configurações do chat não encontradas.")
+    throw new Error("Chat settings not found")
   }
 
   if (!modelData) {
-    throw new Error("Modelo não encontrado.")
+    throw new Error("Model not found")
   }
 
   if (!profile) {
-    throw new Error("Perfil não encontrado.")
+    throw new Error("Profile not found")
   }
 
   if (!selectedWorkspace) {
-    throw new Error("Espaço de trabalho não encontrado.")
+    throw new Error("Workspace not found")
   }
 
   if (!messageContent) {
-    throw new Error("Conteúdo da mensagem não encontrado.")
+    throw new Error("Message content not found")
   }
 }
 
@@ -69,7 +69,7 @@ export const handleRetrieval = async (
   })
 
   if (!response.ok) {
-    console.error("Erro na recuperação:", response)
+    console.error("Error retrieving:", response)
   }
 
   const { results } = (await response.json()) as {
@@ -266,7 +266,7 @@ export const fetchChatResponse = async (
   if (!response.ok) {
     if (response.status === 404 && !isHosted) {
       toast.error(
-        "Modelo não encontrado. Verifique se ele foi baixado via Ollama."
+        "Model not found. Make sure you have it downloaded via Ollama."
       )
     }
 
@@ -316,7 +316,7 @@ export const processResponse = async (
                 )
           fullText += contentToAdd
         } catch (error) {
-          console.error("Erro ao analisar JSON:", error)
+          console.error("Error parsing JSON:", error)
         }
 
         setChatMessages(prev =>
@@ -342,7 +342,7 @@ export const processResponse = async (
 
     return fullText
   } else {
-    throw new Error("O corpo da resposta é nulo.")
+    throw new Error("Response body is null")
   }
 }
 
@@ -456,7 +456,7 @@ export const handleCreateMessages = async (
         }/${uuidv4()}`
 
         return uploadMessageImage(filePath, obj.file as File).catch(error => {
-          console.error(`Falha ao carregar a imagem em ${filePath}:`, error)
+          console.error(`Failed to upload image at ${filePath}:`, error)
           return null
         })
       })

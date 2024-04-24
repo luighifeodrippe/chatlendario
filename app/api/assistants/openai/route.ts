@@ -23,7 +23,7 @@ export async function GET() {
       status: 200
     })
   } catch (error: any) {
-    const errorMessage = error.error?.message || "Um erro inexperado ocorreu"
+    const errorMessage = error.error?.message || "An unexpected error occurred"
     const errorCode = error.status || 500
     return new Response(JSON.stringify({ message: errorMessage }), {
       status: errorCode

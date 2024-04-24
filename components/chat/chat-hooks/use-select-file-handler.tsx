@@ -133,7 +133,7 @@ export const useSelectFileHandler = () => {
             : reader.readAsText(file)
         }
       } else {
-        throw new Error("Tipo de arquivo não suportado.")
+        throw new Error("Unsupported file type")
       }
 
       reader.onloadend = async function () {
@@ -185,7 +185,7 @@ export const useSelectFileHandler = () => {
             )
           }
         } catch (error) {
-          toast.error("Falha ao subir arquivo.")
+          toast.error("Failed to upload.")
 
           setNewMessageImages(prev =>
             prev.filter(img => img.messageId !== "temp")

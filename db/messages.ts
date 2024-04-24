@@ -9,7 +9,7 @@ export const getMessageById = async (messageId: string) => {
     .single()
 
   if (!message) {
-    throw new Error("Mensagem não encontrada")
+    throw new Error("Message not found")
   }
 
   return message
@@ -22,7 +22,7 @@ export const getMessagesByChatId = async (chatId: string) => {
     .eq("chat_id", chatId)
 
   if (!messages) {
-    throw new Error("Mensagens não encontradas")
+    throw new Error("Messages not found")
   }
 
   return messages

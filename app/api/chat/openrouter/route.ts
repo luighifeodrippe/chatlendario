@@ -36,7 +36,7 @@ export async function POST(request: Request) {
 
     return new StreamingTextResponse(stream)
   } catch (error: any) {
-    let errorMessage = error.message || "Ocorreu um erro inesperado."
+    let errorMessage = error.message || "An unexpected error occurred"
     const errorCode = error.status || 500
 
     if (errorMessage.toLowerCase().includes("api key not found")) {

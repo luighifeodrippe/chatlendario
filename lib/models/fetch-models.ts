@@ -16,7 +16,7 @@ export const fetchHostedModels = async (profile: Tables<"profiles">) => {
     const response = await fetch("/api/keys")
 
     if (!response.ok) {
-      throw new Error(`Servidor não está respondendo.`)
+      throw new Error(`Server is not responding.`)
     }
 
     const data = await response.json()
@@ -59,7 +59,7 @@ export const fetchOllamaModels = async () => {
     )
 
     if (!response.ok) {
-      throw new Error(`Servidor Ollama não está respondendo.`)
+      throw new Error(`Ollama server is not responding.`)
     }
 
     const data = await response.json()
@@ -84,7 +84,7 @@ export const fetchOpenRouterModels = async () => {
     const response = await fetch("https://openrouter.ai/api/v1/models")
 
     if (!response.ok) {
-      throw new Error(`OpenRouter não está respondendo.`)
+      throw new Error(`OpenRouter server is not responding.`)
     }
 
     const { data } = await response.json()
@@ -107,7 +107,7 @@ export const fetchOpenRouterModels = async () => {
 
     return openRouterModels
   } catch (error) {
-    console.error(": Erro ao buscar modelos do Open Router" + error)
-    toast.error("Erro ao buscar modelos do Open Router: " + error)
+    console.error("Error fetching Open Router models: " + error)
+    toast.error("Error fetching Open Router models: " + error)
   }
 }

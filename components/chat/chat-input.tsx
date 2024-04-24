@@ -151,7 +151,7 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
       if (item.type.indexOf("image") === 0) {
         if (!imagesAllowed) {
           toast.error(
-            `Imagens não são suportadas por este modelo. Use modelos como GPT-4 Vision.`
+            `Images are not supported for this model. Use models like GPT-4 Vision instead.`
           )
           return
         }

@@ -22,9 +22,9 @@ export async function consumeReadableStream(
     }
   } catch (error) {
     if (signal.aborted) {
-      console.error("A leitura do stream foi abortada:", error)
+      console.error("Stream reading was aborted:", error)
     } else {
-      console.error("Erro ao consumir stream:", error)
+      console.error("Error consuming stream:", error)
     }
   } finally {
     reader.releaseLock()

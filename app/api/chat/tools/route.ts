@@ -55,7 +55,7 @@ export async function POST(request: Request) {
           requestInBody: convertedSchema.routes[0].requestInBody
         })
       } catch (error: any) {
-        console.error("Erro ao converter schema.", error)
+        console.error("Error converting schema", error)
       }
     }
 
@@ -90,9 +90,7 @@ export async function POST(request: Request) {
         )
 
         if (!schemaDetail) {
-          throw new Error(
-            `Função ${functionName} não encontrada em nenhum schema.`
-          )
+          throw new Error(`Function ${functionName} not found in any schema`)
         }
 
         const pathTemplate = Object.keys(schemaDetail.routeMap).find(
@@ -100,25 +98,21 @@ export async function POST(request: Request) {
         )
 
         if (!pathTemplate) {
-          throw new Error(
-            `Caminho para a função ${functionName} não encontrada.`
-          )
+          throw new Error(`Path for function ${functionName} not found`)
         }
 
         const path = pathTemplate.replace(/:(\w+)/g, (_, paramName) => {
           const value = parsedArgs.parameters[paramName]
           if (!value) {
             throw new Error(
-              `Parâmetro ${paramName} não encontrado para a função ${functionName}.`
+              `Parameter ${paramName} not found for function ${functionName}`
             )
           }
           return encodeURIComponent(value)
         })
 
         if (!path) {
-          throw new Error(
-            `Caminho para a função ${functionName} não encontrado.`
-          )
+          throw new Error(`Path for function ${functionName} not found`)
         }
 
         // Determine if the request should be in the body or as a query
@@ -215,7 +209,7 @@ export async function POST(request: Request) {
     return new StreamingTextResponse(stream)
   } catch (error: any) {
     console.error(error)
-    const errorMessage = error.error?.message || "Ocorreu um erro inesperado."
+    const errorMessage = error.error?.message || "An unexpected error occurred"
     const errorCode = error.status || 500
     return new Response(JSON.stringify({ message: errorMessage }), {
       status: errorCode

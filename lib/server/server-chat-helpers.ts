@@ -19,7 +19,7 @@ export async function getServerProfile() {
 
   const user = (await supabase.auth.getUser()).data.user
   if (!user) {
-    throw new Error("Usuário não encontrado")
+    throw new Error("User not found")
   }
 
   const { data: profile } = await supabase
@@ -29,7 +29,7 @@ export async function getServerProfile() {
     .single()
 
   if (!profile) {
-    throw new Error("Perfil não encontrado")
+    throw new Error("Profile not found")
   }
 
   const profileWithKeys = addApiKeysToProfile(profile)
@@ -68,6 +68,6 @@ function addApiKeysToProfile(profile: Tables<"profiles">) {
 
 export function checkApiKey(apiKey: string | null, keyName: string) {
   if (apiKey === null || apiKey === "") {
-    throw new Error(`Chave API ${keyName} não encontrada.`)
+    throw new Error(`${keyName} API Key not found`)
   }
 }

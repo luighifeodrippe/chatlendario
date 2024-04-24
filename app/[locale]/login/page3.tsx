@@ -74,7 +74,7 @@ export default async function Login({
 
     if (!homeWorkspace) {
       throw new Error(
-        homeWorkspaceError?.message || "Ocorreu um erro inesperado.."
+        homeWorkspaceError?.message || "An unexpected error occurred"
       )
     }
 
