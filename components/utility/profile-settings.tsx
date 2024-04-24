@@ -162,7 +162,7 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
 
     setProfile(updatedProfile)
 
-    toast.success("Profile updated!")
+    toast.success("Perfil atualizado!")
 
     const providers = [
       "openai",

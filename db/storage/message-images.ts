@@ -6,7 +6,7 @@ export const uploadMessageImage = async (path: string, image: File) => {
   const imageSizeLimit = 6000000 // 6MB
 
   if (image.size > imageSizeLimit) {
-    throw new Error(`Image must be less than ${imageSizeLimit / 1000000}MB`)
+    throw new Error(`A imagem deve ser menor que ${imageSizeLimit / 1000000}MB`)
   }
 
   const { error } = await supabase.storage.from(bucket).upload(path, image, {
@@ -14,7 +14,7 @@ export const uploadMessageImage = async (path: string, image: File) => {
   })
 
   if (error) {
-    throw new Error("Error uploading image")
+    throw new Error("Erro ao subir imagem.")
   }
 
   return path
@@ -26,7 +26,7 @@ export const getMessageImageFromStorage = async (filePath: string) => {
     .createSignedUrl(filePath, 60 * 60 * 24) // 24hrs
 
   if (error) {
-    throw new Error("Error downloading message image")
+    throw new Error("Erro ao baixar imagem da mensagem.")
   }
 
   return data.signedUrl

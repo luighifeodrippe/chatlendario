@@ -28,7 +28,7 @@ const ImagePicker: FC<ImagePickerProps> = ({
       const file = e.target.files[0]
 
       if (file.size > 6000000) {
-        toast.error("Image must be less than 6MB!")
+        toast.error("A imagem deve ser menor que 6MB!")
         return
       }
 
@@ -42,7 +42,7 @@ const ImagePicker: FC<ImagePickerProps> = ({
         const ctx = canvas.getContext("2d")
 
         if (!ctx) {
-          toast.error("Unable to create canvas context.")
+          toast.error("Não foi possível criar o contexto da tela.")
           return
         }
 

@@ -10,7 +10,9 @@ export const uploadAssistantImage = async (
   const imageSizeLimit = 6000000 // 6MB
 
   if (image.size > imageSizeLimit) {
-    throw new Error(`Image must be less than ${imageSizeLimit / 1000000}MB`)
+    throw new Error(
+      `A imagem precisa ser menor que ${imageSizeLimit / 1000000}MB.`
+    )
   }
 
   const currentPath = assistant.image_path
@@ -22,7 +24,7 @@ export const uploadAssistantImage = async (
       .remove([currentPath])
 
     if (deleteError) {
-      throw new Error("Error deleting old image")
+      throw new Error("Erro ao deletar imagem antiga.")
     }
   }
 
@@ -33,7 +35,7 @@ export const uploadAssistantImage = async (
     })
 
   if (error) {
-    throw new Error("Error uploading image")
+    throw new Error("Erro ao subir imagem.")
   }
 
   return filePath
@@ -46,7 +48,7 @@ export const getAssistantImageFromStorage = async (filePath: string) => {
       .createSignedUrl(filePath, 60 * 60 * 24) // 24hrs
 
     if (error) {
-      throw new Error("Error downloading assistant image")
+      throw new Error("Erro ao baixar imagem do assistente.")
     }
 
     return data.signedUrl
