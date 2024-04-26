@@ -11,6 +11,24 @@ const LLaMA2_70B: LLM = {
   imageInput: false
 }
 
+const LLaMA3_8b: LLM = {
+  modelId: "llama3-8b-8192",
+  modelName: "LLaMA3-8b-chat",
+  provider: "groq",
+  hostedId: "llama3-8b-8192",
+  platformLink: GROQ_PLATORM_LINK,
+  imageInput: false
+}
+
+const LLaMA3_70b: LLM = {
+  modelId: "llama3-70b-8192",
+  modelName: "LLaMA3-70b-chat",
+  provider: "groq",
+  hostedId: "llama3-70b-8192",
+  platformLink: GROQ_PLATORM_LINK,
+  imageInput: false
+}
+
 const MIXTRAL_8X7B: LLM = {
   modelId: "mixtral-8x7b-32768",
   modelName: "Mixtral-8x7b-Instruct-v0.1",
@@ -20,4 +38,9 @@ const MIXTRAL_8X7B: LLM = {
   imageInput: false
 }
 
-export const GROQ_LLM_LIST: LLM[] = [LLaMA2_70B, MIXTRAL_8X7B]
+export const GROQ_LLM_LIST: LLM[] = [
+  LLaMA2_70B,
+  LLaMA3_8b,
+  LLaMA3_70b,
+  MIXTRAL_8X7B
+]
