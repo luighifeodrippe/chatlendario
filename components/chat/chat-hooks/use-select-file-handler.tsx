@@ -64,7 +64,7 @@ export const useSelectFileHandler = () => {
         } else if (
           simplifiedFileType.includes(
             "vnd.openxmlformats-officedocument.wordprocessingml.document" ||
-              "docx"
+            "docx"
           )
         ) {
           simplifiedFileType = "docx"
@@ -84,7 +84,7 @@ export const useSelectFileHandler = () => {
         if (
           file.type.includes(
             "vnd.openxmlformats-officedocument.wordprocessingml.document" ||
-              "docx"
+            "docx"
           )
         ) {
           const arrayBuffer = await file.arrayBuffer()
@@ -114,11 +114,11 @@ export const useSelectFileHandler = () => {
             prev.map(item =>
               item.id === "loading"
                 ? {
-                    id: createdFile.id,
-                    name: createdFile.name,
-                    type: createdFile.type,
-                    file: file
-                  }
+                  id: createdFile.id,
+                  name: createdFile.name,
+                  type: createdFile.type,
+                  file: file
+                }
                 : item
             )
           )
@@ -133,7 +133,7 @@ export const useSelectFileHandler = () => {
             : reader.readAsText(file)
         }
       } else {
-        throw new Error("Tipo de arquivo não suportado.")
+        throw new Error("Arquivo não suportado.")
       }
 
       reader.onloadend = async function () {
@@ -175,18 +175,19 @@ export const useSelectFileHandler = () => {
               prev.map(item =>
                 item.id === "loading"
                   ? {
-                      id: createdFile.id,
-                      name: createdFile.name,
-                      type: createdFile.type,
-                      file: file
-                    }
+                    id: createdFile.id,
+                    name: createdFile.name,
+                    type: createdFile.type,
+                    file: file
+                  }
                   : item
               )
             )
           }
-        } catch (error) {
-          toast.error("Falha ao subir arquivo.")
-
+        } catch (error: any) {
+          toast.error("Falha no upload. " + error?.message, {
+            duration: 10000
+          })
           setNewMessageImages(prev =>
             prev.filter(img => img.messageId !== "temp")
           )

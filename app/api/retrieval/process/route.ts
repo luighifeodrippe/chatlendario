@@ -12,7 +12,7 @@ import { FileItemChunk } from "@/types"
 import { createClient } from "@supabase/supabase-js"
 import { NextResponse } from "next/server"
 import OpenAI from "openai"
-
+// export const maxDuration = 50
 export async function POST(req: Request) {
   try {
     const supabaseAdmin = createClient<Database>(
@@ -24,13 +24,39 @@ export async function POST(req: Request) {
 
     const formData = await req.formData()
 
-    const file = formData.get("file") as File
     const file_id = formData.get("file_id") as string
     const embeddingsProvider = formData.get("embeddingsProvider") as string
 
+    const { data: fileMetadata, error: metadataError } = await supabaseAdmin
+      .from("files")
+      .select("*")
+      .eq("id", file_id)
+      .single()
+
+    if (metadataError) {
+      throw new Error(
+        `Falha ao buscar metadados do arquivo: ${metadataError.message}`
+      )
+    }
+
+    if (!fileMetadata) {
+      throw new Error("Arquivo não encontrado")
+    }
+
+    if (fileMetadata.user_id !== profile.user_id) {
+      throw new Error("Não autorizado")
+    }
+
+    const { data: file, error: fileError } = await supabaseAdmin.storage
+      .from("files")
+      .download(fileMetadata.file_path)
+
+    if (fileError)
+      throw new Error(`Falha ao receber arquivo: ${fileError.message}`)
+
     const fileBuffer = Buffer.from(await file.arrayBuffer())
     const blob = new Blob([fileBuffer])
-    const fileExtension = file.name.split(".").pop()?.toLowerCase()
+    const fileExtension = fileMetadata.name.split(".").pop()?.toLowerCase()
 
     if (embeddingsProvider === "openai") {
       if (profile.use_azure_openai) {
@@ -59,7 +85,7 @@ export async function POST(req: Request) {
         chunks = await processTxt(blob)
         break
       default:
-        return new NextResponse("Unsupported file type", {
+        return new NextResponse("Arquivo não suportado", {
           status: 400
         })
     }
@@ -95,10 +121,7 @@ export async function POST(req: Request) {
         try {
           return await generateLocalEmbedding(chunk.content)
         } catch (error) {
-          console.error(
-            `Erro ao gerar embedding para o chunk: ${chunk}.`,
-            error
-          )
+          console.error(`Erro ao gerar chunk: ${chunk}`, error)
 
           return null
         }
@@ -131,11 +154,11 @@ export async function POST(req: Request) {
       .update({ tokens: totalTokens })
       .eq("id", file_id)
 
-    return new NextResponse("Embed Successful", {
+    return new NextResponse("Sucesso no Embed", {
       status: 200
     })
   } catch (error: any) {
-    const errorMessage = error.error?.message || "Ocorreu um erro inesperado."
+    const errorMessage = error.error?.message || "Ocorreu um erro inesperado"
     const errorCode = error.status || 500
     return new Response(JSON.stringify({ message: errorMessage }), {
       status: errorCode
