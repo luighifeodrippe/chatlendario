@@ -36,13 +36,13 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
           onContentTypeChange={onContentTypeChange}
         />
 
-        {{ profile?.user_id === selectedWorkspace?.user_id && (
+        {profile?.user_id === selectedWorkspace?.user_id && (
           <SidebarSwitchItem
             icon={<IconRobotFace size={SIDEBAR_ICON_SIZE} />}
             contentType="assistants"
             onContentTypeChange={onContentTypeChange}
           />
-        )} }
+        )}
 
         <SidebarSwitchItem
           icon={<IconPencil size={SIDEBAR_ICON_SIZE} />}
