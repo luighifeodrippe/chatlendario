@@ -38,9 +38,4 @@ const MIXTRAL_8X7B: LLM = {
   imageInput: false
 }
 
-export const GROQ_LLM_LIST: LLM[] = [
-  LLaMA2_70B,
-  LLaMA3_8b,
-  LLaMA3_70b,
-  MIXTRAL_8X7B
-]
+export const GROQ_LLM_LIST: LLM[] = [LLaMA3_8b, LLaMA3_70b, MIXTRAL_8X7B]
