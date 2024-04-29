@@ -9,10 +9,14 @@ export const uploadFile = async (
     file_id: string
   }
 ) => {
-  const SIZE_LIMIT = 10000000 // 10MB
+  const SIZE_LIMIT = parseInt(
+    process.env.NEXT_PUBLIC_USER_FILE_SIZE_LIMIT || "10000000"
+  )
 
   if (file.size > SIZE_LIMIT) {
-    throw new Error(`O arquivo deve ser menor que ${SIZE_LIMIT / 1000000}MB.`)
+    throw new Error(
+      `Arquivo precisa ser menor que ${Math.floor(SIZE_LIMIT / 1000000)}MB`
+    )
   }
 
   const filePath = `${payload.user_id}/${Buffer.from(payload.file_id).toString("base64")}`
@@ -24,8 +28,7 @@ export const uploadFile = async (
     })
 
   if (error) {
-    console.error(`Erro ao enviar arquivo com caminho: ${filePath}`, error)
-    throw new Error("Erro ao enviar arquivo")
+    throw new Error("Erro ao subir arquivo")
   }
 
   return filePath
@@ -46,6 +49,7 @@ export const getFileFromStorage = async (filePath: string) => {
     .createSignedUrl(filePath, 60 * 60 * 24) // 24hrs
 
   if (error) {
+    console.error(`Erro ao subir arquivo no caminho: ${filePath}`, error)
     throw new Error("Erro ao baixar arquivo.")
   }
 
