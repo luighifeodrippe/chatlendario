@@ -93,7 +93,13 @@ export const fetchOpenRouterModels = async () => {
     const removedModels = "anthropic/claude-3-opus:beta,anthropic/claude-3-opus"
 
     const openRouterModelsFiltered = data.filter(
-      (model: { id: string }) => !removedModels.includes(model.id)
+      (model: { id: string }) =>
+        !removedModels.includes(model.id) &&
+        !model.id.includes("mistralai") &&
+        !model.id.includes("anthropic") &&
+        !model.id.includes("openai") &&
+        !model.id.includes("meta-llama") &&
+        !model.id.includes("google")
     )
 
     const openRouterModels = openRouterModelsFiltered.map(
