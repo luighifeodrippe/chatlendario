@@ -64,7 +64,7 @@ export const useSelectFileHandler = () => {
         } else if (
           simplifiedFileType.includes(
             "vnd.openxmlformats-officedocument.wordprocessingml.document" ||
-            "docx"
+              "docx"
           )
         ) {
           simplifiedFileType = "docx"
@@ -84,7 +84,7 @@ export const useSelectFileHandler = () => {
         if (
           file.type.includes(
             "vnd.openxmlformats-officedocument.wordprocessingml.document" ||
-            "docx"
+              "docx"
           )
         ) {
           const arrayBuffer = await file.arrayBuffer()
@@ -114,11 +114,11 @@ export const useSelectFileHandler = () => {
             prev.map(item =>
               item.id === "loading"
                 ? {
-                  id: createdFile.id,
-                  name: createdFile.name,
-                  type: createdFile.type,
-                  file: file
-                }
+                    id: createdFile.id,
+                    name: createdFile.name,
+                    type: createdFile.type,
+                    file: file
+                  }
                 : item
             )
           )
@@ -175,11 +175,11 @@ export const useSelectFileHandler = () => {
               prev.map(item =>
                 item.id === "loading"
                   ? {
-                    id: createdFile.id,
-                    name: createdFile.name,
-                    type: createdFile.type,
-                    file: file
-                  }
+                      id: createdFile.id,
+                      name: createdFile.name,
+                      type: createdFile.type,
+                      file: file
+                    }
                   : item
               )
             )
