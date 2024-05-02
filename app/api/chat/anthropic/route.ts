@@ -1,11 +1,16 @@
 import { CHAT_SETTING_LIMITS } from "@/lib/chat-setting-limits"
-import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
+import {
+  checkApiKey,
+  getServerProfile,
+  limitMessage,
+  messageCount
+} from "@/lib/server/server-chat-helpers"
 import { getBase64FromDataURL, getMediaTypeFromDataURL } from "@/lib/utils"
 import { ChatSettings } from "@/types"
 import Anthropic from "@anthropic-ai/sdk"
 import { AnthropicStream, StreamingTextResponse } from "ai"
 import { NextRequest, NextResponse } from "next/server"
-
+import { ANTHROPIC_LLM_LIST } from "@/lib/models/llm/anthropic-llm-list"
 export const runtime = "edge"
 
 export async function POST(request: NextRequest) {
@@ -19,6 +24,11 @@ export async function POST(request: NextRequest) {
     const profile = await getServerProfile()
 
     checkApiKey(profile.anthropic_api_key, "Anthropic")
+    if (
+      ANTHROPIC_LLM_LIST.find(model => model.modelId === chatSettings.model)
+        ?.highTier
+    )
+      await limitMessage()
 
     let ANTHROPIC_FORMATTED_MESSAGES: any = messages.slice(1)
 

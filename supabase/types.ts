@@ -1159,6 +1159,7 @@ export interface Database {
           perplexity_api_key: string | null
           profile_context: string
           updated_at: string | null
+          last_timeout: string | null
           use_azure_openai: boolean
           user_id: string
           username: string
@@ -1187,6 +1188,7 @@ export interface Database {
           perplexity_api_key?: string | null
           profile_context: string
           updated_at?: string | null
+          last_timeout?: string | null
           use_azure_openai: boolean
           user_id: string
           username: string
@@ -1215,6 +1217,7 @@ export interface Database {
           perplexity_api_key?: string | null
           profile_context?: string
           updated_at?: string | null
+          last_timeout?: string | null
           use_azure_openai?: boolean
           user_id?: string
           username?: string

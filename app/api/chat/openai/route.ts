@@ -1,4 +1,9 @@
-import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
+import { OPENAI_LLM_LIST } from "@/lib/models/llm/openai-llm-list"
+import {
+  checkApiKey,
+  getServerProfile,
+  limitMessage
+} from "@/lib/server/server-chat-helpers"
 import { ChatSettings } from "@/types"
 import { OpenAIStream, StreamingTextResponse } from "ai"
 import { ServerRuntime } from "next"
@@ -13,7 +18,11 @@ export async function POST(request: Request) {
     chatSettings: ChatSettings
     messages: any[]
   }
-
+  if (
+    OPENAI_LLM_LIST.find(model => model.modelId === chatSettings.model)
+      ?.highTier
+  )
+    await limitMessage()
   try {
     const profile = await getServerProfile()
 
