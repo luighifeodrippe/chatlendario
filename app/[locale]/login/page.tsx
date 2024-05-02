@@ -44,7 +44,9 @@ export default async function Login({
     if (!homeWorkspace) {
       throw new Error(error.message)
     }
-
+    if (session?.user?.app_metadata.role === "suporte") {
+      return redirect("/create-user")
+    }
     return redirect(`/${homeWorkspace.id}/chat`)
   }
 
@@ -76,6 +78,10 @@ export default async function Login({
       throw new Error(
         homeWorkspaceError?.message || "Ocorreu um erro inesperado.."
       )
+    }
+    const session = (await supabase.auth.getSession()).data.session
+    if (session?.user?.app_metadata.role === "suporte") {
+      return redirect("/create-user")
     }
 
     return redirect(`/${homeWorkspace.id}/chat`)
