@@ -18,13 +18,13 @@ export async function POST(request: Request) {
     chatSettings: ChatSettings
     messages: any[]
   }
-  if (
-    OPENAI_LLM_LIST.find(model => model.modelId === chatSettings.model)
-      ?.highTier
-  )
-    await limitMessage()
   try {
     const profile = await getServerProfile()
+    if (
+      OPENAI_LLM_LIST.find(model => model.modelId === chatSettings.model)
+        ?.highTier
+    )
+      await limitMessage()
 
     checkApiKey(profile.openai_api_key, "OpenAI")
 

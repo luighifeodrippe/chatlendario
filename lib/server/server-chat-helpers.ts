@@ -104,15 +104,13 @@ async function getMessageCount(profile: Tables<"profiles">): Promise<number> {
 export async function limitMessage() {
   const profile = await getServerProfile()
   const currentDate = new Date()
-
-  if (
-    (profile.last_timeout
-      ? profile.last_timeout
-      : getThreeHoursAgoDate().toISOString()) < currentDate.toISOString()
-  ) {
+  const lastTimeOut = profile.last_timeout
+    ? profile.last_timeout
+    : getThreeHoursAgoDate().toISOString()
+  if (lastTimeOut < currentDate.toISOString()) {
     try {
       const messageCount = await getMessageCount(profile)
-      if (messageCount > MESSAGE_LIMIT) {
+      if (messageCount >= MESSAGE_LIMIT) {
         const timeoutDate = new Date(
           currentDate.getTime() + TIMEOUT_HOURS * 60 * 60 * 1000
         )
@@ -126,8 +124,24 @@ export async function limitMessage() {
       throw error
     }
   } else {
+    const offsetHours = -3 // Seu fuso horário (-3 horas)
+
+    // Converter a data ISO para um objeto Date
+    const date = new Date(lastTimeOut)
+
+    // Obter a diferença em milissegundos entre o fuso horário local e o UTC
+    const offset = date.getTimezoneOffset() + offsetHours * 60
+
+    // Criar um novo objeto Date com a diferença de fuso horário aplicada
+    const adjustedDate = new Date(date.getTime() - offset * 60 * 1000)
+
+    // Extrair as horas e minutos da data ajustada
+    const hours = adjustedDate.getHours().toString().padStart(2, "0")
+    let minutes = adjustedDate.getMinutes().toString().padStart(2, "0")
+    minutes = (parseInt(minutes) + 1).toString().padStart(2, "0")
+    const adjustedTimeString = `${hours}:${minutes}`
     throw new Error(
-      "Você ultrapassou o limite de mensagens nas últimas 3 horas, tire um tempo para você."
+      `Você ultrapassou o limite de mensagens nas últimas 3 horas, seu acesso estará liberado às ${adjustedTimeString}.`
     )
   }
 }
