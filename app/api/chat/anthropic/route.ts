@@ -2,8 +2,7 @@ import { CHAT_SETTING_LIMITS } from "@/lib/chat-setting-limits"
 import {
   checkApiKey,
   getServerProfile,
-  limitMessage,
-  messageCount
+  limitMessage
 } from "@/lib/server/server-chat-helpers"
 import { getBase64FromDataURL, getMediaTypeFromDataURL } from "@/lib/utils"
 import { ChatSettings } from "@/types"
