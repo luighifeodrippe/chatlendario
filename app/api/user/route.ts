@@ -41,11 +41,8 @@ export async function POST(request: Request) {
   } catch (error: any) {
     const errorMessage = error?.message || "Ocorreu um erro inesperado."
     const errorCode = error.status || 500
-    return (
-      new Response(errorMessage),
-      {
-        status: errorCode
-      }
-    )
+    return new Response(JSON.stringify({ message: errorMessage }), {
+      status: errorCode
+    })
   }
 }
