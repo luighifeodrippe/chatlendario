@@ -73,7 +73,7 @@ export function checkApiKey(apiKey: string | null, keyName: string) {
     throw new Error(`Chave API ${keyName} não encontrada.`)
   }
 }
-const MESSAGE_LIMIT = 50
+const MESSAGE_LIMIT = 25
 const TIMEOUT_HOURS = 3
 const MODELS = ["claude-3-opus-20240229", "gpt-4-turbo-preview"]
 
@@ -141,7 +141,7 @@ export async function limitMessage() {
     minutes = (parseInt(minutes) + 1).toString().padStart(2, "0")
     const adjustedTimeString = `${hours}:${minutes}`
     throw new Error(
-      `Você ultrapassou o limite de mensagens nas últimas 3 horas, seu acesso estará liberado às ${adjustedTimeString}.`
+      `Você ultrapassou o limite de mensagens nas últimas 3 horas para este modelo, seu acesso estará liberado às ${adjustedTimeString}. Utilize outro modelo enquanto isso.`
     )
   }
 }
