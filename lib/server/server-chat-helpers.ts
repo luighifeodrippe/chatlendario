@@ -149,7 +149,7 @@ export async function limitMessage() {
 
 function getThreeHoursAgoDate(): Date {
   const currentDate = new Date()
-  currentDate.setHours(currentDate.getHours() - 3)
+  currentDate.setHours(currentDate.getHours() - 6)
   return currentDate
 }
 
