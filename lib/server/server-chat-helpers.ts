@@ -97,7 +97,8 @@ async function getMessageCount(profile: Tables<"profiles">): Promise<number> {
     .in("model", MODELS)
     .eq("role", "user")
     .gte("created_at", threeHoursAgo.toISOString())
-
+  console.log(threeHoursAgo)
+  console.log(count)
   return count || 0
 }
 
