@@ -12,7 +12,7 @@ import { FileItemChunk } from "@/types"
 import { createClient } from "@supabase/supabase-js"
 import { NextResponse } from "next/server"
 import OpenAI from "openai"
-export const maxDuration = 100
+export const maxDuration = 300
 export async function POST(req: Request) {
   try {
     const supabaseAdmin = createClient<Database>(
