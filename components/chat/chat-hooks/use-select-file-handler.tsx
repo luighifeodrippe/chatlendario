@@ -63,13 +63,20 @@ export const useSelectFileHandler = () => {
         )
         return
       }
-      let simplifiedFileType = file.type.split("/")[1]
+      // if (file?.type === '' && file.name.includes('.md'))
+
+      let simplifiedFileType = !file.name.endsWith(".md")
+        ? file.type.split("/")[1]
+        : "plain"
 
       let reader = new FileReader()
 
       if (file.type.includes("image")) {
         reader.readAsDataURL(file)
-      } else if (ACCEPTED_FILE_TYPES.split(",").includes(file.type)) {
+      } else if (
+        ACCEPTED_FILE_TYPES.split(",").includes(file.type) ||
+        file.name.endsWith(".md")
+      ) {
         if (simplifiedFileType.includes("vnd.adobe.pdf")) {
           simplifiedFileType = "pdf"
         } else if (

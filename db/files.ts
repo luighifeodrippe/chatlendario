@@ -135,10 +135,10 @@ export const createFile = async (
     body: formData
   })
 
-  // if (!response.ok) {
-  //   toast.error("Failed to process file.")
-  //   // await deleteFile(createdFile.id)
-  // }
+  if (!response.ok) {
+    //   toast.error("Failed to process file.")
+    await deleteFile(createdFile.id)
+  }
 
   const fetchedFile = await getFileById(createdFile.id)
 
@@ -192,10 +192,10 @@ export const createDocXFile = async (
     })
   })
 
-  // if (!response.ok) {
-  //   toast.error("Failed to process file.")
-  //   // await deleteFile(createdFile.id)
-  // }
+  if (!response.ok) {
+    //   toast.error("Failed to process file.")
+    await deleteFile(createdFile.id)
+  }
 
   const fetchedFile = await getFileById(createdFile.id)
 
