@@ -142,7 +142,7 @@ export async function limitMessage() {
     minutes = (parseInt(minutes) + 1).toString().padStart(2, "0")
     const adjustedTimeString = `${hours}:${minutes}`
     throw new Error(
-      `Você ultrapassou o limite de mensagens nas últimas 3 horas para este modelo, seu acesso estará liberado às ${adjustedDate}. Utilize outro modelo enquanto isso.`
+      `Você ultrapassou o limite de mensagens nas últimas 3 horas para este modelo, seu acesso estará liberado às ${lastTimeOut}. Utilize outro modelo enquanto isso.`
     )
   }
 }
