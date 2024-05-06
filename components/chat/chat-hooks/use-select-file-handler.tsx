@@ -53,6 +53,16 @@ export const useSelectFileHandler = () => {
     setUseRetrieval(true)
 
     if (file) {
+      const SIZE_LIMIT = parseInt(
+        process.env.NEXT_PUBLIC_USER_FILE_SIZE_LIMIT || "10000000"
+      )
+
+      if (file.size > SIZE_LIMIT) {
+        toast.error(
+          `Arquivo precisa ser menor que ${Math.floor(SIZE_LIMIT / 1000000)}MB`
+        )
+        return
+      }
       let simplifiedFileType = file.type.split("/")[1]
 
       let reader = new FileReader()
