@@ -23,11 +23,11 @@ export async function POST(request: NextRequest) {
     const profile = await getServerProfile()
 
     checkApiKey(profile.anthropic_api_key, "Anthropic")
-    if (
-      ANTHROPIC_LLM_LIST.find(model => model.modelId === chatSettings.model)
-        ?.highTier
-    )
-      await limitMessage()
+    // if (
+    //   ANTHROPIC_LLM_LIST.find(model => model.modelId === chatSettings.model)
+    //     ?.highTier
+    // )
+    //   await limitMessage()
 
     let ANTHROPIC_FORMATTED_MESSAGES: any = messages.slice(1)
 
