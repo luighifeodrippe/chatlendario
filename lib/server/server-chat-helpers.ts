@@ -91,27 +91,33 @@ async function getMessageCount(profile: Tables<"profiles">): Promise<number> {
   )
 
   const threeHoursAgo = getThreeHoursAgoDate()
+  console.log("threeHoursAgo")
+  console.log(threeHoursAgo)
   const { count } = await supabase
     .from("messages")
     .select("*", { count: "exact" })
     .in("model", MODELS)
     .eq("role", "user")
     .gte("created_at", threeHoursAgo.toISOString())
-  console.log(threeHoursAgo)
-  console.log(count)
   return count || 0
 }
 
 export async function limitMessage() {
   const profile = await getServerProfile()
-  let currentDate = new Date()
-  currentDate.setHours(currentDate.getHours() - 3)
+  const currentDate = new Date()
+  // currentDate.setHours(currentDate.getHours() - 3)
   const lastTimeOut = profile.last_timeout
     ? profile.last_timeout
     : getThreeHoursAgoDate().toISOString()
+  console.log("currentDate")
+  console.log(currentDate)
+  console.log("lastTimeOut")
+  console.log(lastTimeOut)
   if (lastTimeOut < currentDate.toISOString()) {
     try {
       const messageCount = await getMessageCount(profile)
+      console.log("messageCount")
+      console.log(messageCount)
       if (messageCount >= MESSAGE_LIMIT) {
         const timeoutDate = new Date(
           currentDate.getTime() + TIMEOUT_HOURS * 60 * 60 * 1000
@@ -143,14 +149,14 @@ export async function limitMessage() {
     minutes = (parseInt(minutes) + 1).toString().padStart(2, "0")
     const adjustedTimeString = `${hours}:${minutes}`
     throw new Error(
-      `Você ultrapassou o limite de mensagens nas últimas 3 horas para este modelo, seu acesso estará liberado às ${lastTimeOut}. Utilize outro modelo enquanto isso.`
+      `Você ultrapassou o limite de mensagens nas últimas 3 horas para este modelo. Aguarde 3 horas para utilizar este modelo novamente. Utilize outro modelo enquanto isso.`
     )
   }
 }
 
 function getThreeHoursAgoDate(): Date {
   const currentDate = new Date()
-  currentDate.setHours(currentDate.getHours() - 6)
+  currentDate.setHours(currentDate.getHours() - 3)
   return currentDate
 }
 
