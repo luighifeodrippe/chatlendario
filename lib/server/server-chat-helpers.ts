@@ -144,7 +144,8 @@ export async function limitMessage() {
     const adjustedDate = new Date(date.getTime() - offset * 60 * 1000)
 
     // Extrair as horas e minutos da data ajustada
-    const hours = adjustedDate.getHours().toString().padStart(2, "0")
+    let hours = adjustedDate.getHours().toString().padStart(2, "0")
+    hours = (parseInt(hours) - 6).toString().padStart(2, "0")
     let minutes = adjustedDate.getMinutes().toString().padStart(2, "0")
     minutes = (parseInt(minutes) + 1).toString().padStart(2, "0")
     const adjustedTimeString = `${hours}:${minutes}`
