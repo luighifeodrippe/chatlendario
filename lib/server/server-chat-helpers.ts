@@ -91,14 +91,14 @@ async function getMessageCount(profile: Tables<"profiles">): Promise<number> {
   )
 
   const threeHoursAgo = getThreeHoursAgoDate()
+  console.log("threeHoursAgo")
+  console.log(threeHoursAgo)
   const { count } = await supabase
     .from("messages")
     .select("*", { count: "exact" })
     .in("model", MODELS)
     .eq("role", "user")
     .gte("created_at", threeHoursAgo.toISOString())
-  console.log(threeHoursAgo)
-  console.log(count)
   return count || 0
 }
 
@@ -109,9 +109,15 @@ export async function limitMessage() {
   const lastTimeOut = profile.last_timeout
     ? profile.last_timeout
     : getThreeHoursAgoDate().toISOString()
+  console.log("currentDate")
+  console.log(currentDate)
+  console.log("lastTimeOut")
+  console.log(lastTimeOut)
   if (lastTimeOut < currentDate.toISOString()) {
     try {
       const messageCount = await getMessageCount(profile)
+      console.log("messageCount")
+      console.log(messageCount)
       if (messageCount >= MESSAGE_LIMIT) {
         const timeoutDate = new Date(
           currentDate.getTime() + TIMEOUT_HOURS * 60 * 60 * 1000
