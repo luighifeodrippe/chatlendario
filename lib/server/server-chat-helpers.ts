@@ -150,7 +150,7 @@ export async function limitMessage() {
     minutes = (parseInt(minutes) + 1).toString().padStart(2, "0")
     const adjustedTimeString = `${hours}:${minutes}`
     throw new Error(
-      `Você ultrapassou o limite de mensagens nas últimas 3 horas para este modelo. Seu acesso ao Opus e GPT-Turbo será em ${adjustedTimeString}. Utilize outro modelo enquanto isso.`
+      `Você ultrapassou o limite de mensagens nas últimas 3 horas para este modelo. Seu acesso ao Opus e GPT-Turbo será reestabelecido após 3 horas desde a última mensagem enviada. Utilize outro modelo enquanto isso.`
     )
   }
 }
