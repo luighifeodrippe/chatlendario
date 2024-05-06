@@ -73,7 +73,7 @@ export function checkApiKey(apiKey: string | null, keyName: string) {
     throw new Error(`Chave API ${keyName} não encontrada.`)
   }
 }
-const MESSAGE_LIMIT = 25
+const MESSAGE_LIMIT = 20
 const TIMEOUT_HOURS = 3
 const MODELS = ["claude-3-opus-20240229", "gpt-4-turbo-preview"]
 
@@ -97,13 +97,15 @@ async function getMessageCount(profile: Tables<"profiles">): Promise<number> {
     .in("model", MODELS)
     .eq("role", "user")
     .gte("created_at", threeHoursAgo.toISOString())
-
+  console.log(threeHoursAgo)
+  console.log(count)
   return count || 0
 }
 
 export async function limitMessage() {
   const profile = await getServerProfile()
-  const currentDate = new Date()
+  let currentDate = new Date()
+  currentDate.setHours(currentDate.getHours() - 3)
   const lastTimeOut = profile.last_timeout
     ? profile.last_timeout
     : getThreeHoursAgoDate().toISOString()
@@ -141,14 +143,14 @@ export async function limitMessage() {
     minutes = (parseInt(minutes) + 1).toString().padStart(2, "0")
     const adjustedTimeString = `${hours}:${minutes}`
     throw new Error(
-      `Você ultrapassou o limite de mensagens nas últimas 3 horas para este modelo, seu acesso estará liberado às ${adjustedTimeString}. Utilize outro modelo enquanto isso.`
+      `Você ultrapassou o limite de mensagens nas últimas 3 horas para este modelo, seu acesso estará liberado às ${lastTimeOut}. Utilize outro modelo enquanto isso.`
     )
   }
 }
 
 function getThreeHoursAgoDate(): Date {
   const currentDate = new Date()
-  currentDate.setHours(currentDate.getHours() - 3)
+  currentDate.setHours(currentDate.getHours() - 6)
   return currentDate
 }
 
