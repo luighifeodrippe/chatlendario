@@ -103,7 +103,8 @@ async function getMessageCount(profile: Tables<"profiles">): Promise<number> {
 
 export async function limitMessage() {
   const profile = await getServerProfile()
-  const currentDate = new Date()
+  let currentDate = new Date()
+  currentDate.setHours(currentDate.getHours() - 3)
   const lastTimeOut = profile.last_timeout
     ? profile.last_timeout
     : getThreeHoursAgoDate().toISOString()
@@ -112,7 +113,7 @@ export async function limitMessage() {
       const messageCount = await getMessageCount(profile)
       if (messageCount >= MESSAGE_LIMIT) {
         const timeoutDate = new Date(
-          currentDate.getTime() - 6 + TIMEOUT_HOURS * 60 * 60 * 1000
+          currentDate.getTime() + TIMEOUT_HOURS * 60 * 60 * 1000
         )
         await updateProfileTimeout(profile.id, timeoutDate)
         throw new Error(
