@@ -73,7 +73,7 @@ export function checkApiKey(apiKey: string | null, keyName: string) {
     throw new Error(`Chave API ${keyName} não encontrada.`)
   }
 }
-const MESSAGE_LIMIT = 25
+const MESSAGE_LIMIT = 20
 const TIMEOUT_HOURS = 3
 const MODELS = ["claude-3-opus-20240229", "gpt-4-turbo-preview"]
 
@@ -112,7 +112,7 @@ export async function limitMessage() {
       const messageCount = await getMessageCount(profile)
       if (messageCount >= MESSAGE_LIMIT) {
         const timeoutDate = new Date(
-          currentDate.getTime() - 3 + TIMEOUT_HOURS * 60 * 60 * 1000
+          currentDate.getTime() - 6 + TIMEOUT_HOURS * 60 * 60 * 1000
         )
         await updateProfileTimeout(profile.id, timeoutDate)
         throw new Error(
