@@ -112,7 +112,7 @@ export async function limitMessage() {
       const messageCount = await getMessageCount(profile)
       if (messageCount >= MESSAGE_LIMIT) {
         const timeoutDate = new Date(
-          currentDate.getTime() + TIMEOUT_HOURS * 60 * 60 * 1000
+          currentDate.getTime() - 3 + TIMEOUT_HOURS * 60 * 60 * 1000
         )
         await updateProfileTimeout(profile.id, timeoutDate)
         throw new Error(
