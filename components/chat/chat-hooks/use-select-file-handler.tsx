@@ -53,13 +53,30 @@ export const useSelectFileHandler = () => {
     setUseRetrieval(true)
 
     if (file) {
-      let simplifiedFileType = file.type.split("/")[1]
+      const SIZE_LIMIT = parseInt(
+        process.env.NEXT_PUBLIC_USER_FILE_SIZE_LIMIT || "10000000"
+      )
+
+      if (file.size > SIZE_LIMIT) {
+        toast.error(
+          `Arquivo precisa ser menor que ${Math.floor(SIZE_LIMIT / 1000000)}MB`
+        )
+        return
+      }
+      // if (file?.type === '' && file.name.includes('.md'))
+
+      let simplifiedFileType = !file.name.endsWith(".md")
+        ? file.type.split("/")[1]
+        : "plain"
 
       let reader = new FileReader()
 
       if (file.type.includes("image")) {
         reader.readAsDataURL(file)
-      } else if (ACCEPTED_FILE_TYPES.split(",").includes(file.type)) {
+      } else if (
+        ACCEPTED_FILE_TYPES.split(",").includes(file.type) ||
+        file.name.endsWith(".md")
+      ) {
         if (simplifiedFileType.includes("vnd.adobe.pdf")) {
           simplifiedFileType = "pdf"
         } else if (

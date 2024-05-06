@@ -91,9 +91,9 @@ export const createFile = async (
   workspace_id: string,
   embeddingsProvider: "openai" | "local"
 ) => {
-  let validFilename = fileRecord.name.replace(/[^a-z0-9.]/gi, "_").toLowerCase()
+  let baseName = file.name.replace(/[^a-z0-9.]/gi, "_").toLowerCase()
   const extension = file.name.split(".").pop()
-  const baseName = validFilename.substring(0, validFilename.lastIndexOf("."))
+  baseName = baseName.substring(0, baseName.lastIndexOf("."))
   const maxBaseNameLength = 100 - (extension?.length || 0) - 1
   if (baseName.length > maxBaseNameLength) {
     fileRecord.name = baseName.substring(0, maxBaseNameLength) + "." + extension
@@ -135,10 +135,10 @@ export const createFile = async (
     body: formData
   })
 
-  // if (!response.ok) {
-  //   toast.error("Failed to process file.")
-  //   // await deleteFile(createdFile.id)
-  // }
+  if (!response.ok) {
+    //   toast.error("Failed to process file.")
+    await deleteFile(createdFile.id)
+  }
 
   const fetchedFile = await getFileById(createdFile.id)
 
@@ -192,10 +192,10 @@ export const createDocXFile = async (
     })
   })
 
-  // if (!response.ok) {
-  //   toast.error("Failed to process file.")
-  //   // await deleteFile(createdFile.id)
-  // }
+  if (!response.ok) {
+    //   toast.error("Failed to process file.")
+    await deleteFile(createdFile.id)
+  }
 
   const fetchedFile = await getFileById(createdFile.id)
 

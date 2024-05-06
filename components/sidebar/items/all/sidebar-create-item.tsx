@@ -195,7 +195,15 @@ export const SidebarCreateItem: FC<SidebarCreateItemProps> = ({
       if (!createFunction || !setStateFunction) return
 
       setCreating(true)
+      const SIZE_LIMIT = parseInt(
+        process.env.NEXT_PUBLIC_USER_FILE_SIZE_LIMIT || "10000000"
+      )
 
+      if (createState.size > SIZE_LIMIT) {
+        throw new Error(
+          `Arquivo precisa ser menor que ${Math.floor(SIZE_LIMIT / 1000000)}MB`
+        )
+      }
       const newItem = await createFunction(createState, selectedWorkspace.id)
 
       setStateFunction((prevItems: any) => [...prevItems, newItem])

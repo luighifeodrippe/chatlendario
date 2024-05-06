@@ -58,7 +58,6 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   } = useContext(ChatbotUIContext)
 
   const [loading, setLoading] = useState(true)
-
   useEffect(() => {
     ;(async () => {
       const session = (await supabase.auth.getSession()).data.session
@@ -66,6 +65,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
       if (!session) {
         return router.push("/login")
       } else {
+        // console.log(session.user)
         await fetchWorkspaceData(workspaceId)
       }
     })()
@@ -202,8 +202,17 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     //   }
     // )
 
+    const session = (await supabase.auth.getSession()).data.session
+    let defModel =
+      session?.user?.app_metadata.role !== "formacao"
+        ? "claude-3-haiku-20240307"
+        : "gpt-4-1106-preview"
+    // console.log(defModel)
+    // console.log(workspace?.default_model)
     setChatSettings({
-      model: (workspace?.default_model || "gpt-4-1106-preview") as LLMID,
+      model: (session?.user?.app_metadata.role !== "formacao"
+        ? "claude-3-haiku-20240307"
+        : workspace?.default_model || defModel) as LLMID,
       prompt:
         workspace?.default_prompt ||
         "You are a friendly, helpful AI assistant.",

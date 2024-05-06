@@ -31,13 +31,16 @@ export const getWorkspaceById = async (workspaceId: string) => {
 }
 
 export const getWorkspacesByUserId = async (userId: string) => {
+  const {
+    data: { user }
+  } = await supabase.auth.getUser()
   const { data: workspaces, error } = await supabase
     .from("workspaces")
     .select("*")
-    .or(`user_id.eq.${userId},sharing.eq.public`)
-    // .eq("user_id", userId).or
+    // .or(`user_id.eq.${userId},sharing.eq.public`)
+    .or(`user_id.eq.${userId},user_role.eq.${user?.app_metadata.role}`)
+    // .eq("user_id", userId)
     .order("created_at", { ascending: false })
-
   if (!workspaces) {
     throw new Error(error.message)
   }

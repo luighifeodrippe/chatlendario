@@ -52,7 +52,8 @@ const CLAUDE_3_OPUS: LLM = {
   provider: "anthropic",
   hostedId: "claude-3-opus-20240229",
   platformLink: ANTHROPIC_PLATFORM_LINK,
-  imageInput: true
+  imageInput: true,
+  highTier: true
 }
 
 export const ANTHROPIC_LLM_LIST: LLM[] = [CLAUDE_3_HAIKU, CLAUDE_3_OPUS]

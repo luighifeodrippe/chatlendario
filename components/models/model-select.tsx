@@ -12,6 +12,8 @@ import { Input } from "../ui/input"
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs"
 import { ModelIcon } from "./model-icon"
 import { ModelOption } from "./model-option"
+import { supabase } from "@/lib/supabase/browser-client"
+import { toast } from "sonner"
 
 interface ModelSelectProps {
   selectedModelId: string
@@ -45,8 +47,18 @@ export const ModelSelect: FC<ModelSelectProps> = ({
     }
   }, [isOpen])
 
-  const handleSelectModel = (modelId: LLMID) => {
-    onSelectModel(modelId)
+  const handleSelectModel = async (modelId: LLMID) => {
+    const {
+      data: { user }
+    } = await supabase.auth.getUser()
+    if (
+      user?.app_metadata.role !== "formacao" &&
+      allModels?.find(x => x.modelId == modelId)?.highTier == true
+    ) {
+      toast.error("Modelo exclusivo para alunos da Formação Lendária.")
+    } else {
+      onSelectModel(modelId)
+    }
     setIsOpen(false)
   }
 
@@ -57,7 +69,8 @@ export const ModelSelect: FC<ModelSelectProps> = ({
       provider: "custom" as ModelProvider,
       hostedId: model.id,
       platformLink: "",
-      imageInput: false
+      imageInput: false,
+      highTier: "highTier" in model ? !!model.highTier : false
     })),
     ...availableHostedModels,
     ...availableLocalModels,
