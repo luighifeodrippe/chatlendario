@@ -33,8 +33,4 @@ const GEMINI_PRO_15: LLM = {
   imageInput: true
 }
 
-export const GOOGLE_LLM_LIST: LLM[] = [
-  GEMINI_PRO,
-  GEMINI_PRO_15,
-  GEMINI_PRO_VISION
-]
+export const GOOGLE_LLM_LIST: LLM[] = [GEMINI_PRO, GEMINI_PRO_VISION]
