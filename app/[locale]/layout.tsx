@@ -103,8 +103,8 @@ export default async function RootLayout({
             </div>
           </TranslationsProvider>
         </Providers>
-        {/* <Analytics mode={"production"} />
-        <SpeedInsights /> */}
+        <Analytics mode={"production"} />
+        {/*<SpeedInsights /> */}
       </body>
     </html>
   )
