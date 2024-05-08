@@ -71,10 +71,15 @@ export async function POST(request: Request) {
 
     if (errorMessage.toLowerCase().includes("api key not found")) {
       errorMessage =
-        "Google Gemini API Key not found. Please set it in your profile settings."
+        "Chave do Google Gemini API Key não encontrada. Por favor verifique a configuração."
     } else if (errorMessage.toLowerCase().includes("api key not valid")) {
       errorMessage =
-        "Google Gemini API Key is incorrect. Please fix it in your profile settings."
+        "Chave do Google Gemini API Key inválida. Por favor verifique a configuração."
+    } else if (
+      errorMessage.toLowerCase().includes("add an image to use models")
+    ) {
+      errorMessage =
+        "Para utilizar o modelo Vision insira uma imagem e o prompt que deseja que ele execute. Este modelo não suporta conversas contínuas, toda mensagem deve conter uma imagem."
     }
 
     return new Response(JSON.stringify({ message: errorMessage }), {
