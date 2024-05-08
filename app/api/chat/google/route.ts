@@ -80,6 +80,11 @@ export async function POST(request: Request) {
     ) {
       errorMessage =
         "Para utilizar o modelo Vision insira uma imagem e o prompt que deseja que ele execute. Este modelo não suporta conversas contínuas, toda mensagem deve conter uma imagem."
+    } else if (
+      errorMessage.toLowerCase().includes("resource has been exhausted")
+    ) {
+      errorMessage =
+        "A API do google recebeu muitas solicitações, aguarde alguns segundos para enviar a mensagem."
     }
 
     return new Response(JSON.stringify({ message: errorMessage }), {
