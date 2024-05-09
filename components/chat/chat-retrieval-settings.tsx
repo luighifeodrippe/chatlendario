@@ -38,7 +38,7 @@ export const ChatRetrievalSettings: FC<ChatRetrievalSettingsProps> = ({}) => {
       <DialogContent>
         <div className="space-y-3">
           <Label className="flex items-center space-x-1">
-            <div>Source Count:</div>
+            <div>Contagem de Fontes:</div>
 
             <div>{sourceCount}</div>
           </Label>
@@ -56,7 +56,7 @@ export const ChatRetrievalSettings: FC<ChatRetrievalSettingsProps> = ({}) => {
 
         <DialogFooter>
           <Button size="sm" onClick={() => setIsOpen(false)}>
-            Save & Close
+            Salvar e Fechar
           </Button>
         </DialogFooter>
       </DialogContent>
