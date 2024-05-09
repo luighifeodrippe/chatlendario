@@ -34,7 +34,7 @@ export const FileItem: FC<FileItemProps> = ({ file }) => {
             className="cursor-pointer underline hover:opacity-50"
             onClick={getLinkAndView}
           >
-            View {file.name}
+            Ver {file.name}
           </div>
 
           <div className="flex flex-col justify-between">

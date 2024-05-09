@@ -238,7 +238,7 @@ export const ChatFilesDisplay: FC<ChatFilesDisplayProps> = ({}) => {
 
           <div>
             {" "}
-            View {combinedMessageFiles.length} file
+            Ver {combinedMessageFiles.length} arquivo
             {combinedMessageFiles.length > 1 ? "s" : ""}
           </div>
 
