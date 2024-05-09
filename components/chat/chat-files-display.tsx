@@ -106,7 +106,7 @@ export const ChatFilesDisplay: FC<ChatFilesDisplayProps> = ({}) => {
           >
             <RetrievalToggle />
 
-            <div>Hide files</div>
+            <div>Esconder Arquivos</div>
 
             <div onClick={e => e.stopPropagation()}>
               <ChatRetrievalSettings />
