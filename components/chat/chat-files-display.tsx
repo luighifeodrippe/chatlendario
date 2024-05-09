@@ -262,8 +262,8 @@ const RetrievalToggle = ({}) => {
         display={
           <div>
             {useRetrieval
-              ? "File retrieval is enabled on the selected files for this message. Click the indicator to disable."
-              : "Click the indicator to enable file retrieval for this message."}
+              ? "A busca de arquivos está ativa nos arquivos selecionados para essa mensagem. Clique no indicador para desabilitar."
+              : "Clique no indicador para ativar a busca de arquivos."}
           </div>
         }
         trigger={
