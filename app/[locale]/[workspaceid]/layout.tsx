@@ -215,7 +215,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
         : workspace?.default_model || defModel) as LLMID,
       prompt:
         workspace?.default_prompt ||
-        "You are a friendly, helpful AI assistant.",
+        "Você é um assistente amigável, prestativo e responde as solicitações do usuário em Português do Brasil.",
       temperature: workspace?.default_temperature || 0,
       contextLength: workspace?.default_context_length || 128000,
       includeProfileContext: workspace?.include_profile_context || false,

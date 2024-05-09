@@ -25,7 +25,7 @@ export const ChatRetrievalSettings: FC<ChatRetrievalSettingsProps> = ({}) => {
         <WithTooltip
           delayDuration={0}
           side="top"
-          display={<div>Adjust retrieval settings.</div>}
+          display={<div>Ajustar configurações de RAG.</div>}
           trigger={
             <IconAdjustmentsHorizontal
               className="cursor-pointer pt-[4px] hover:opacity-50"
