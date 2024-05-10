@@ -157,7 +157,11 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     setChats(chats)
     setCollections(collectionData.collections)
     setFolders(folders)
-    setFiles(fileData.files)
+    setFiles(
+      fileData.files.filter(
+        item => item.user_id !== "62086780-40f8-4d1e-b91e-3cc5a05b48dc"
+      )
+    )
     setPresets(presetData.presets)
     setPrompts(promptData.prompts)
     setModels(modelData.models)
