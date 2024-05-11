@@ -95,9 +95,7 @@ export async function POST(request: Request) {
         messageContent,
         rephrasedUserInput || messageContent,
         mostSimilarChunks,
-        rerankerEnabled
-          ? parseInt(process.env.RERANKER_QUANTITY_ANALIZED || "12")
-          : sourceCount,
+        sourceCount,
         process.env.RERANKER_MODEL_ID as any,
         parseInt(process.env.RERANKER_MAX_CONTEXT_SIZE || "16000")
       )
