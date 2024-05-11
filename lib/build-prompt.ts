@@ -341,6 +341,7 @@ export async function buildClaudeFinalMessages(
     finalMessages[1].role !== "user" &&
     finalMessages[0].role === "system"
   ) {
+    finalMessages[1].content = `${finalMessages[0].content}\n ${finalMessages[1].content}`
     return finalMessages.toSpliced(1, 1)
   }
 
