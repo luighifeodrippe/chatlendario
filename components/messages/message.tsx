@@ -288,7 +288,7 @@ export const Message: FC<MessageProps> = ({
                       <div className="flex animate-pulse items-center space-x-2">
                         <IconFileText size={20} />
 
-                        <div>Searching files...</div>
+                        <div>Buscando arquivos...</div>
                       </div>
                     )
                   default:
@@ -323,9 +323,9 @@ export const Message: FC<MessageProps> = ({
                 onClick={() => setViewSources(true)}
               >
                 {fileItems.length}
-                {fileItems.length > 1 ? " Sources " : " Source "}
+                {fileItems.length > 1 ? " Fontes " : " Fonte "}
                 from {Object.keys(fileSummary).length}{" "}
-                {Object.keys(fileSummary).length > 1 ? "Files" : "File"}{" "}
+                {Object.keys(fileSummary).length > 1 ? "Arquivos" : "Arquivo"}{" "}
                 <IconCaretRightFilled className="ml-1" />
               </div>
             ) : (
@@ -335,9 +335,9 @@ export const Message: FC<MessageProps> = ({
                   onClick={() => setViewSources(false)}
                 >
                   {fileItems.length}
-                  {fileItems.length > 1 ? " Sources " : " Source "}
+                  {fileItems.length > 1 ? " Fontes " : " Fonte "}
                   from {Object.keys(fileSummary).length}{" "}
-                  {Object.keys(fileSummary).length > 1 ? "Files" : "File"}{" "}
+                  {Object.keys(fileSummary).length > 1 ? "Arquivos" : "Arquivo"}{" "}
                   <IconCaretDownFilled className="ml-1" />
                 </div>
 

@@ -25,7 +25,7 @@ export const CreateAssistant: FC<CreateAssistantProps> = ({
   const [isTyping, setIsTyping] = useState(false)
   const [description, setDescription] = useState("")
   const [assistantChatSettings, setAssistantChatSettings] = useState({
-    model: selectedWorkspace?.default_model,
+    model: "claude-3-haiku-20240307",
     prompt: selectedWorkspace?.default_prompt,
     temperature: selectedWorkspace?.default_temperature,
     contextLength: selectedWorkspace?.default_context_length,
@@ -180,14 +180,14 @@ export const CreateAssistant: FC<CreateAssistantProps> = ({
             useAdvancedDropdown={true}
           />
 
-          {/* <div className="space-y-1 pt-2">
-            <Label>Arquivos & Coleções</Label>
+          <div className="space-y-1 pt-2">
+            <Label>Conhecimento</Label>
 
             <AssistantRetrievalSelect
               selectedAssistantRetrievalItems={selectedAssistantRetrievalItems}
               onAssistantRetrievalItemsSelect={handleRetrievalItemSelect}
             />
-          </div> */}
+          </div>
 
           {/* {checkIfModelIsToolCompatible() ? (
             <div className="space-y-1">

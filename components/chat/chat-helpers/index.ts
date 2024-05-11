@@ -7,6 +7,7 @@ import { createMessages, updateMessage } from "@/db/messages"
 import { uploadMessageImage } from "@/db/storage/message-images"
 import {
   buildFinalMessages,
+  buildClaudeFinalMessages,
   buildGoogleGeminiFinalMessages
 } from "@/lib/build-prompt"
 import { consumeReadableStream } from "@/lib/consume-stream"
@@ -213,6 +214,12 @@ export const handleHostedChat = async (
       payload,
       profile,
       newMessageImages
+    )
+  } else if (provider === "anthropic") {
+    formattedMessages = await buildClaudeFinalMessages(
+      payload,
+      profile,
+      chatImages
     )
   } else {
     formattedMessages = await buildFinalMessages(payload, profile, chatImages)
