@@ -7,6 +7,7 @@ import { ChatMessage } from "@/types"
 import { Database } from "@/supabase/types"
 import { createClient } from "@supabase/supabase-js"
 import OpenAI from "openai"
+export const maxDuration = 300
 
 export async function POST(request: Request) {
   const json = await request.json()
