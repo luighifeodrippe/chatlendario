@@ -1,7 +1,6 @@
 import fetch from "node-fetch"
 interface Chunk {
   content: string
-  // outras propriedades se houver
 }
 export async function rerankChunks(
   userInput: string,
@@ -32,7 +31,7 @@ export async function rerankChunks(
 
   let rerankedChunks: Chunk[] = chunks
 
-  if (responseBody.rankings) {
+  if (responseBody.rankings.length > 0) {
     rerankedChunks = chunks
       .sort((a, b) => {
         const indexA = responseBody.rankings.findIndex(
@@ -44,8 +43,6 @@ export async function rerankChunks(
         return indexA - indexB
       })
       .slice(0, sourceCount)
-
-    // console.log(JSON.stringify(responseBody));
   }
 
   return rerankedChunks
