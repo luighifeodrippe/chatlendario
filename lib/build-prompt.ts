@@ -169,8 +169,8 @@ export async function buildFinalMessages(
       }\n\n${retrievalText}`
     }
   }
-
-  return finalMessages
+  const adjustedFinalMessages = reorderRoles(finalMessages)
+  return adjustedFinalMessages
 }
 
 function buildRetrievalText(fileItems: Tables<"file_items">[]) {
@@ -325,7 +325,6 @@ export async function buildGoogleGeminiFinalMessages(
       }
     ]
   }
-
   return finalMessages
 }
 export async function buildClaudeFinalMessages(
@@ -346,4 +345,33 @@ export async function buildClaudeFinalMessages(
   }
 
   return finalMessages
+}
+
+function reorderRoles(conversation) {
+  const systemMessage = conversation.find(message => message.role === "system")
+  const userMessages = conversation.filter(message => message.role === "user")
+  const assistantMessages = conversation.filter(
+    message => message.role === "assistant"
+  )
+
+  const reorderedConversation = []
+
+  if (systemMessage) {
+    reorderedConversation.push(systemMessage)
+  }
+
+  for (
+    let i = 0;
+    i < Math.max(userMessages.length, assistantMessages.length);
+    i++
+  ) {
+    if (userMessages[i]) {
+      reorderedConversation.push(userMessages[i])
+    }
+    if (assistantMessages[i]) {
+      reorderedConversation.push(assistantMessages[i])
+    }
+  }
+
+  return reorderedConversation
 }
