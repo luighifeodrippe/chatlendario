@@ -159,6 +159,7 @@ export async function buildFinalMessages(
     }
   })
 
+  finalMessages = await reorderRoles(finalMessages)
   if (messageFileItems.length > 0) {
     const retrievalText = buildRetrievalText(messageFileItems)
 
@@ -169,8 +170,7 @@ export async function buildFinalMessages(
       }\n\n${retrievalText}`
     }
   }
-  const adjustedFinalMessages = reorderRoles(finalMessages)
-  return adjustedFinalMessages
+  return finalMessages
 }
 
 function buildRetrievalText(fileItems: Tables<"file_items">[]) {
@@ -347,7 +347,7 @@ export async function buildClaudeFinalMessages(
   return finalMessages
 }
 
-function reorderRoles(conversation: any) {
+async function reorderRoles(conversation: any) {
   const systemMessage = conversation.find(
     (message: any) => message.role === "system"
   )
@@ -369,11 +369,11 @@ function reorderRoles(conversation: any) {
     i < Math.max(userMessages.length, assistantMessages.length);
     i++
   ) {
-    if (userMessages[i]) {
-      reorderedConversation.push(userMessages[i])
-    }
     if (assistantMessages[i]) {
       reorderedConversation.push(assistantMessages[i])
+    }
+    if (userMessages[i]) {
+      reorderedConversation.push(userMessages[i])
     }
   }
 
