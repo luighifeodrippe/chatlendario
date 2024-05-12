@@ -8,10 +8,11 @@ const buildBasePrompt = (
   workspaceInstructions: string,
   assistant: Tables<"assistants"> | null
 ) => {
-  let fullPrompt = ""
+  let fullPrompt =
+    "All your output must be in Brazilian Portuguese, it is imperative, unless the user requests another language."
 
   if (assistant) {
-    fullPrompt += `<INJECT ROLE>\nYou are not an AI. You are ${assistant.name}.\n</INJECT ROLE>\n\n`
+    fullPrompt += `<INJECT ROLE>\nYou are not an AI.  You are ${assistant.name}.\n</INJECT ROLE>\n\n`
   }
 
   fullPrompt += `Today is ${new Date().toLocaleDateString()}.\n\n`
@@ -340,6 +341,7 @@ export async function buildClaudeFinalMessages(
     finalMessages[1].role !== "user" &&
     finalMessages[0].role === "system"
   ) {
+    finalMessages[1].content = `${finalMessages[0].content}\n ${finalMessages[1].content}`
     return finalMessages.toSpliced(1, 1)
   }
 
