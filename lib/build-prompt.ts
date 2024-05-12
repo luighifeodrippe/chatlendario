@@ -347,11 +347,15 @@ export async function buildClaudeFinalMessages(
   return finalMessages
 }
 
-function reorderRoles(conversation) {
-  const systemMessage = conversation.find(message => message.role === "system")
-  const userMessages = conversation.filter(message => message.role === "user")
+function reorderRoles(conversation: any) {
+  const systemMessage = conversation.find(
+    (message: any) => message.role === "system"
+  )
+  const userMessages = conversation.filter(
+    (message: any) => message.role === "user"
+  )
   const assistantMessages = conversation.filter(
-    message => message.role === "assistant"
+    (message: any) => message.role === "assistant"
   )
 
   const reorderedConversation = []
