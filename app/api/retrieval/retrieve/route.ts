@@ -1,6 +1,6 @@
 import { generateLocalEmbedding } from "@/lib/generate-local-embedding"
 import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
-import { rerankChunks } from "@/lib/retrieve/nvidiarerank"
+import { rerankChunks } from "@/lib/retrieve/coherererank"
 import { Database } from "@/supabase/types"
 import { createClient } from "@supabase/supabase-js"
 import OpenAI from "openai"

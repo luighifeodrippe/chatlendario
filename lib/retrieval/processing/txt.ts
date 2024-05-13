@@ -5,7 +5,7 @@ import { CHUNK_OVERLAP, CHUNK_SIZE } from "."
 
 export const processTxt = async (txt: Blob): Promise<FileItemChunk[]> => {
   const fileBuffer = Buffer.from(await txt.arrayBuffer())
-  const textDecoder = new TextDecoder("utf-8")
+  const textDecoder = new TextDecoder("windows-1252")
   const textContent = textDecoder.decode(fileBuffer)
 
   const splitter = new RecursiveCharacterTextSplitter({
