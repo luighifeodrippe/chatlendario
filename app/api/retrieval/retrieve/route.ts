@@ -61,7 +61,7 @@ export async function POST(request: Request) {
       const { data: openaiFileItems, error: openaiError } =
         await supabaseAdmin.rpc("match_file_items_openai", {
           query_embedding: openaiEmbedding as any,
-          match_count: 50,
+          match_count: 100,
           file_ids: uniqueFileIds
         })
 
