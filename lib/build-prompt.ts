@@ -159,7 +159,6 @@ export async function buildFinalMessages(
     }
   })
 
-  finalMessages = await reorderRoles(finalMessages)
   if (messageFileItems.length > 0) {
     const retrievalText = buildRetrievalText(messageFileItems)
 
@@ -170,6 +169,7 @@ export async function buildFinalMessages(
       }\n\n${retrievalText}`
     }
   }
+  // finalMessages = await reorderRoles(finalMessages)
   return finalMessages
 }
 

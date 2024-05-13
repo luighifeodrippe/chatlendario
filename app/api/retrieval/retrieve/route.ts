@@ -86,8 +86,9 @@ export async function POST(request: Request) {
 
       chunks = localFileItems
     }
+    if (chunks.length > 0)
+      chunks = await rerankChunks(userInput, chunks, sourceCount)
 
-    chunks = await rerankChunks(userInput, chunks, sourceCount)
     let mostSimilarChunks = chunks?.sort((a, b) => b.similarity - a.similarity)
 
     return new Response(JSON.stringify({ results: mostSimilarChunks }), {

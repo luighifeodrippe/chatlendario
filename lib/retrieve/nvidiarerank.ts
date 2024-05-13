@@ -31,7 +31,7 @@ export async function rerankChunks(
 
   let rerankedChunks: Chunk[] = chunks
 
-  if (responseBody.rankings.length > 0) {
+  if (responseBody.rankings !== undefined) {
     rerankedChunks = chunks
       .sort((a, b) => {
         const indexA = responseBody.rankings.findIndex(
