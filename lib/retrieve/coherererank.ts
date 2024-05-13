@@ -30,6 +30,7 @@ export async function rerankChunks(
   let rerankedChunks: Chunk[] = [...chunks]
 
   if (responseBody.results !== undefined) {
+    console.log(`Rerank Executado: ${JSON.stringify(responseBody)}`)
     rerankedChunks = chunks.sort((a, b) => {
       const indexA = responseBody.results.findIndex(
         (index: { index: number }) => index.index === chunks.indexOf(a)
