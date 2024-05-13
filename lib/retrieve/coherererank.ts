@@ -27,21 +27,19 @@ export async function rerankChunks(
 
   const responseBody = await response.json()
 
-  let rerankedChunks: Chunk[] = chunks
+  let rerankedChunks: Chunk[] = [...chunks]
 
   if (responseBody.results !== undefined) {
-    rerankedChunks = chunks
-      .sort((a, b) => {
-        const indexA = responseBody.results.findIndex(
-          (index: { index: number }) => index.index === chunks.indexOf(a)
-        )
-        const indexB = responseBody.results.findIndex(
-          (index: { index: number }) => index.index === chunks.indexOf(b)
-        )
-        return indexA - indexB
-      })
-      .slice(0, sourceCount)
+    rerankedChunks = chunks.sort((a, b) => {
+      const indexA = responseBody.results.findIndex(
+        (index: { index: number }) => index.index === chunks.indexOf(a)
+      )
+      const indexB = responseBody.results.findIndex(
+        (index: { index: number }) => index.index === chunks.indexOf(b)
+      )
+      return indexA - indexB
+    })
   }
 
-  return rerankedChunks
+  return rerankedChunks.slice(0, sourceCount)
 }
