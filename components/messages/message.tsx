@@ -324,7 +324,7 @@ export const Message: FC<MessageProps> = ({
               >
                 {fileItems.length}
                 {fileItems.length > 1 ? " Fontes " : " Fonte "}
-                from {Object.keys(fileSummary).length}{" "}
+                de {Object.keys(fileSummary).length}{" "}
                 {Object.keys(fileSummary).length > 1 ? "Arquivos" : "Arquivo"}{" "}
                 <IconCaretRightFilled className="ml-1" />
               </div>
@@ -336,7 +336,7 @@ export const Message: FC<MessageProps> = ({
                 >
                   {fileItems.length}
                   {fileItems.length > 1 ? " Fontes " : " Fonte "}
-                  from {Object.keys(fileSummary).length}{" "}
+                  de {Object.keys(fileSummary).length}{" "}
                   {Object.keys(fileSummary).length > 1 ? "Arquivos" : "Arquivo"}{" "}
                   <IconCaretDownFilled className="ml-1" />
                 </div>

@@ -8,10 +8,11 @@ const buildBasePrompt = (
   workspaceInstructions: string,
   assistant: Tables<"assistants"> | null
 ) => {
-  let fullPrompt = ""
+  let fullPrompt =
+    "All your output must be in Brazilian Portuguese, it is imperative, unless the user requests another language."
 
   if (assistant) {
-    fullPrompt += `<INJECT ROLE>\nYou are not an AI. You are ${assistant.name}.\n</INJECT ROLE>\n\n`
+    fullPrompt += `<INJECT ROLE>\nYou are not an AI.  You are ${assistant.name}.\n</INJECT ROLE>\n\n`
   }
 
   fullPrompt += `Today is ${new Date().toLocaleDateString()}.\n\n`
@@ -175,7 +176,7 @@ export async function buildFinalMessages(
       }\n\n${retrievalText}`
     }
   }
-
+  // finalMessages = await reorderRoles(finalMessages)
   return finalMessages
 }
 
@@ -331,7 +332,6 @@ export async function buildGoogleGeminiFinalMessages(
       }
     ]
   }
-
   return finalMessages
 }
 export async function buildClaudeFinalMessages(
@@ -347,8 +347,42 @@ export async function buildClaudeFinalMessages(
     finalMessages[1].role !== "user" &&
     finalMessages[0].role === "system"
   ) {
+    finalMessages[1].content = `${finalMessages[0].content}\n ${finalMessages[1].content}`
     return finalMessages.toSpliced(1, 1)
   }
 
   return finalMessages
+}
+
+async function reorderRoles(conversation: any) {
+  const systemMessage = conversation.find(
+    (message: any) => message.role === "system"
+  )
+  const userMessages = conversation.filter(
+    (message: any) => message.role === "user"
+  )
+  const assistantMessages = conversation.filter(
+    (message: any) => message.role === "assistant"
+  )
+
+  const reorderedConversation = []
+
+  if (systemMessage) {
+    reorderedConversation.push(systemMessage)
+  }
+
+  for (
+    let i = 0;
+    i < Math.max(userMessages.length, assistantMessages.length);
+    i++
+  ) {
+    if (assistantMessages[i]) {
+      reorderedConversation.push(assistantMessages[i])
+    }
+    if (userMessages[i]) {
+      reorderedConversation.push(userMessages[i])
+    }
+  }
+
+  return reorderedConversation
 }

@@ -1,8 +1,10 @@
 import { generateLocalEmbedding } from "@/lib/generate-local-embedding"
 import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
+import { rerankChunks } from "@/lib/retrieve/coherererank"
 import { Database } from "@/supabase/types"
 import { createClient } from "@supabase/supabase-js"
 import OpenAI from "openai"
+export const maxDuration = 300
 
 export async function POST(request: Request) {
   const json = await request.json()
@@ -59,7 +61,7 @@ export async function POST(request: Request) {
       const { data: openaiFileItems, error: openaiError } =
         await supabaseAdmin.rpc("match_file_items_openai", {
           query_embedding: openaiEmbedding as any,
-          match_count: sourceCount,
+          match_count: 100,
           file_ids: uniqueFileIds
         })
 
@@ -84,10 +86,12 @@ export async function POST(request: Request) {
 
       chunks = localFileItems
     }
+    if ((chunks.length > 0 && process.env.ENABLE_RERANK!) || false)
+      chunks = await rerankChunks(userInput, chunks, sourceCount)
 
-    const mostSimilarChunks = chunks?.sort(
-      (a, b) => b.similarity - a.similarity
-    )
+    let mostSimilarChunks = chunks
+      ?.sort((a, b) => b.similarity - a.similarity)
+      .slice(0, sourceCount)
 
     return new Response(JSON.stringify({ results: mostSimilarChunks }), {
       status: 200
