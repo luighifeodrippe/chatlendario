@@ -141,7 +141,14 @@ export async function buildFinalMessages(
               formedUrl = chatImage.base64
             }
           }
-
+          if (chatSettings.model.indexOf("gpt-4o") !== -1) {
+            return {
+              type: "image_url",
+              image_url: {
+                url: formedUrl
+              }
+            }
+          }
           return {
             type: "image_url",
             image_url: formedUrl
