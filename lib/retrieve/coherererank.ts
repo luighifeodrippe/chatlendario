@@ -42,5 +42,5 @@ export async function rerankChunks(
     })
   }
 
-  return rerankedChunks.slice(0, sourceCount)
+  return rerankedChunks
 }
