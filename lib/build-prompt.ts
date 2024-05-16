@@ -193,8 +193,13 @@ export async function buildGoogleGeminiFinalMessages(
   profile: Tables<"profiles">,
   messageImageFiles: MessageImage[]
 ) {
-  const { chatSettings, workspaceInstructions, chatMessages, assistant } =
-    payload
+  const {
+    chatSettings,
+    workspaceInstructions,
+    chatMessages,
+    assistant,
+    messageFileItems
+  } = payload
 
   const BUILT_PROMPT = buildBasePrompt(
     chatSettings.prompt,
@@ -288,6 +293,16 @@ export async function buildGoogleGeminiFinalMessages(
     ]
 
     for (let i = 1; i < finalMessages.length; i++) {
+      if (i === finalMessages.length - 1) {
+        const retrievalText = buildRetrievalText(messageFileItems)
+
+        finalMessages[finalMessages.length - 1] = {
+          ...finalMessages[finalMessages.length - 1],
+          content: `${
+            finalMessages[finalMessages.length - 1].content
+          }\n\n${retrievalText}`
+        }
+      }
       GOOGLE_FORMATTED_MESSAGES.push({
         role: finalMessages[i].role === "user" ? "user" : "model",
         parts: [
@@ -297,7 +312,6 @@ export async function buildGoogleGeminiFinalMessages(
         ]
       })
     }
-
     const files = messageImageFiles.map(file => file.file)
 
     const imageParts = await Promise.all(
