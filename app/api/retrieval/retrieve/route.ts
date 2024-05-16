@@ -86,16 +86,18 @@ export async function POST(request: Request) {
 
       chunks = localFileItems
     }
-    if ((chunks.length > 0 && process.env.ENABLE_RERANK!) || false)
-      chunks = await rerankChunks(userInput, chunks, sourceCount)
 
-    let mostSimilarChunks = chunks
-      ?.sort((a, b) => b.similarity - a.similarity)
-      .slice(0, sourceCount)
+    let mostSimilarChunks = chunks?.sort((a, b) => b.similarity - a.similarity)
 
-    return new Response(JSON.stringify({ results: mostSimilarChunks }), {
-      status: 200
-    })
+    if (mostSimilarChunks.length > 0 && (process.env.ENABLE_RERANK! || false))
+      chunks = await rerankChunks(userInput, mostSimilarChunks, sourceCount)
+
+    return new Response(
+      JSON.stringify({ results: mostSimilarChunks.slice(0, sourceCount) }),
+      {
+        status: 200
+      }
+    )
   } catch (error: any) {
     const errorMessage = error.error?.message || "Ocorreu um erro inesperado."
     const errorCode = error.status || 500
