@@ -185,7 +185,7 @@ function buildRetrievalText(fileItems: Tables<"file_items">[]) {
     .map(item => `<BEGIN SOURCE>\n${item.content}\n</END SOURCE>`)
     .join("\n\n")
 
-  return `You may use the following sources if needed to answer the user's question. If you don't know the answer, say "I don't know."\n\n${retrievalText}`
+  return `You can use the following sources if necessary to answer the user's question. Especially when he refers to it as a document, file, pdf, txt, book or related. If you don't know the answer, say "I don't know."\n\n${retrievalText}`
 }
 
 export async function buildGoogleGeminiFinalMessages(
@@ -193,8 +193,13 @@ export async function buildGoogleGeminiFinalMessages(
   profile: Tables<"profiles">,
   messageImageFiles: MessageImage[]
 ) {
-  const { chatSettings, workspaceInstructions, chatMessages, assistant } =
-    payload
+  const {
+    chatSettings,
+    workspaceInstructions,
+    chatMessages,
+    assistant,
+    messageFileItems
+  } = payload
 
   const BUILT_PROMPT = buildBasePrompt(
     chatSettings.prompt,
@@ -288,6 +293,16 @@ export async function buildGoogleGeminiFinalMessages(
     ]
 
     for (let i = 1; i < finalMessages.length; i++) {
+      if (i === finalMessages.length - 1) {
+        const retrievalText = buildRetrievalText(messageFileItems)
+
+        finalMessages[finalMessages.length - 1] = {
+          ...finalMessages[finalMessages.length - 1],
+          content: `${
+            finalMessages[finalMessages.length - 1].content
+          }\n\n${retrievalText}`
+        }
+      }
       GOOGLE_FORMATTED_MESSAGES.push({
         role: finalMessages[i].role === "user" ? "user" : "model",
         parts: [
@@ -297,7 +312,6 @@ export async function buildGoogleGeminiFinalMessages(
         ]
       })
     }
-
     const files = messageImageFiles.map(file => file.file)
 
     const imageParts = await Promise.all(
