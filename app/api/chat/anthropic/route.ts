@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
       },
       []
     )
-
+    console.log("Mensagem", ANTHROPIC_FORMATTED_MESSAGES)
     const anthropic = new Anthropic({
       apiKey: profile.anthropic_api_key || ""
     })
