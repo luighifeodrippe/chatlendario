@@ -10,7 +10,8 @@ import Anthropic from "@anthropic-ai/sdk"
 import { AnthropicStream, StreamingTextResponse } from "ai"
 import { NextRequest, NextResponse } from "next/server"
 import { ANTHROPIC_LLM_LIST } from "@/lib/models/llm/anthropic-llm-list"
-export const runtime = "edge"
+// export const runtime = "edge"
+export const maxDuration = 300
 
 export async function POST(request: NextRequest) {
   const json = await request.json()
