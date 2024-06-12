@@ -36,34 +36,42 @@ export async function POST(request: NextRequest) {
         const messageContent =
           typeof curr?.content === "string" ? [curr.content] : curr?.content
 
-        const formattedContent = messageContent.map((content: any) => {
-          if (typeof content === "string") {
-            return { type: "text", text: content }
-          } else if (
-            content?.type === "image_url" &&
-            content?.image_url?.length
-          ) {
-            return {
-              type: "image",
-              source: {
-                type: "base64",
-                media_type: getMediaTypeFromDataURL(content.image_url),
-                data: getBase64FromDataURL(content.image_url)
+        const formattedContent = messageContent
+          .map((content: any) => {
+            if (typeof content === "string") {
+              if (content.trim() !== "") {
+                return { type: "text", text: content }
+              } else {
+                return null
               }
+            } else if (
+              content?.type === "image_url" &&
+              content?.image_url?.length
+            ) {
+              return {
+                type: "image",
+                source: {
+                  type: "base64",
+                  media_type: getMediaTypeFromDataURL(content.image_url),
+                  data: getBase64FromDataURL(content.image_url)
+                }
+              }
+            } else {
+              return content
             }
-          } else {
-            return content
-          }
-        })
-
-        if (acc.length === 0 || curr.role !== acc[acc.length - 1].role) {
-          acc.push({
-            ...curr,
-            content: formattedContent
           })
-        } else {
-          acc[acc.length - 1].content =
-            acc[acc.length - 1].content.concat(formattedContent)
+          .filter((content: any) => content !== null)
+
+        if (formattedContent.length > 0) {
+          if (acc.length === 0 || curr.role !== acc[acc.length - 1].role) {
+            acc.push({
+              ...curr,
+              content: formattedContent
+            })
+          } else {
+            acc[acc.length - 1].content =
+              acc[acc.length - 1].content.concat(formattedContent)
+          }
         }
 
         return acc
