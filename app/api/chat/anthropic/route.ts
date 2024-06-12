@@ -31,19 +31,19 @@ export async function POST(request: NextRequest) {
 
     let ANTHROPIC_FORMATTED_MESSAGES: any = messages.slice(1)
 
-    ANTHROPIC_FORMATTED_MESSAGES = ANTHROPIC_FORMATTED_MESSAGES?.map(
-      (message: any) => {
+    ANTHROPIC_FORMATTED_MESSAGES = ANTHROPIC_FORMATTED_MESSAGES?.reduce(
+      (acc: any[], curr: any, index: number) => {
         const messageContent =
-          typeof message?.content === "string"
-            ? [message.content]
-            : message?.content
+          typeof curr?.content === "string" ? [curr.content] : curr?.content
 
-        return {
-          ...message,
-          content: messageContent.map((content: any) => {
+        const formattedContent = messageContent
+          .map((content: any) => {
             if (typeof content === "string") {
-              // Handle the case where content is a string
-              return { type: "text", text: content }
+              if (content.trim() !== "") {
+                return { type: "text", text: content }
+              } else {
+                return null
+              }
             } else if (
               content?.type === "image_url" &&
               content?.image_url?.length
@@ -60,10 +60,25 @@ export async function POST(request: NextRequest) {
               return content
             }
           })
-        }
-      }
-    )
+          .filter((content: any) => content !== null)
 
+        if (formattedContent.length > 0) {
+          if (acc.length === 0 || curr.role !== acc[acc.length - 1].role) {
+            acc.push({
+              ...curr,
+              content: formattedContent
+            })
+          } else {
+            acc[acc.length - 1].content =
+              acc[acc.length - 1].content.concat(formattedContent)
+          }
+        }
+
+        return acc
+      },
+      []
+    )
+    console.log("Mensagem", ANTHROPIC_FORMATTED_MESSAGES)
     const anthropic = new Anthropic({
       apiKey: profile.anthropic_api_key || ""
     })
