@@ -55,5 +55,17 @@ const CLAUDE_3_OPUS: LLM = {
   imageInput: true,
   highTier: true
 }
-
-export const ANTHROPIC_LLM_LIST: LLM[] = [CLAUDE_3_HAIKU, CLAUDE_3_OPUS]
+const CLAUDE_3_5_SONNET: LLM = {
+  modelId: "claude-3-5-sonnet-20240620",
+  modelName: "Claude 3.5 Sonnet",
+  provider: "anthropic",
+  hostedId: "claude-3-5-sonnet-20240620",
+  platformLink: ANTHROPIC_PLATFORM_LINK,
+  imageInput: true,
+  highTier: true
+}
+export const ANTHROPIC_LLM_LIST: LLM[] = [
+  CLAUDE_3_HAIKU,
+  CLAUDE_3_OPUS,
+  CLAUDE_3_5_SONNET
+]
