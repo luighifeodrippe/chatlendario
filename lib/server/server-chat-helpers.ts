@@ -75,7 +75,12 @@ export function checkApiKey(apiKey: string | null, keyName: string) {
 }
 const MESSAGE_LIMIT = 20
 const TIMEOUT_HOURS = 3
-const MODELS = ["claude-3-opus-20240229", "gpt-4-turbo-preview", "gpt-4o"]
+
+const MODELS = [
+  "claude-3-opus-20240229",
+  "gpt-4-turbo-preview",
+  "claude-3-5-sonnet-20240620"
+]
 
 async function getMessageCount(profile: Tables<"profiles">): Promise<number> {
   const supabase = createServerClient<Database>(
