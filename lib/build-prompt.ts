@@ -9,7 +9,7 @@ const buildBasePrompt = (
   assistant: Tables<"assistants"> | null
 ) => {
   let fullPrompt =
-    "All your output must be in Brazilian Portuguese, it is imperative, unless the user requests another language."
+    "All your output must be in Brazilian Portuguese, it is imperative, unless the user requests another language or his request is in another language."
 
   if (assistant) {
     fullPrompt += `<INJECT ROLE>\nYou are not an AI.  You are ${assistant.name}.\n</INJECT ROLE>\n\n`
