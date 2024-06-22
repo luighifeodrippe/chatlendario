@@ -10,7 +10,7 @@ interface BrandProps {
 
 export const Brand: FC<BrandProps> = ({ theme = "dark" }) => {
   return (
-    <div className="flex cursor-pointer flex-col items-center hover:opacity-50">
+    <div className="flex flex-col items-center hover:opacity-50">
       <div className="mb-2">
         <ChatbotUISVG theme={theme === "dark" ? "dark" : "light"} scale={0.3} />
       </div>
