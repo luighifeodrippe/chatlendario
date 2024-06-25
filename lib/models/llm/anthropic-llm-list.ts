@@ -64,8 +64,4 @@ const CLAUDE_3_5_SONNET: LLM = {
   imageInput: true,
   highTier: true
 }
-export const ANTHROPIC_LLM_LIST: LLM[] = [
-  CLAUDE_3_HAIKU,
-  CLAUDE_3_OPUS,
-  CLAUDE_3_5_SONNET
-]
+export const ANTHROPIC_LLM_LIST: LLM[] = [CLAUDE_3_HAIKU, CLAUDE_3_5_SONNET]
