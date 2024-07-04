@@ -73,7 +73,7 @@ export function checkApiKey(apiKey: string | null, keyName: string) {
     throw new Error(`Chave API ${keyName} não encontrada.`)
   }
 }
-const MESSAGE_LIMIT = 20
+const MESSAGE_LIMIT = 40
 const TIMEOUT_HOURS = 3
 
 const MODELS = [
