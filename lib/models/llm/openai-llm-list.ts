@@ -21,12 +21,7 @@ const GPT4oMini: LLM = {
   hostedId: "gpt-4o-mini",
   platformLink: OPENAI_PLATORM_LINK,
   imageInput: true,
-  pricing: {
-    currency: "USD",
-    unit: "1M tokens",
-    inputCost: 0.15,
-    outputCost: 0.6
-  }
+  highTier: true
 }
 // GPT-4 Turbo (UPDATED 1/25/24)
 const GPT4Turbo: LLM = {
