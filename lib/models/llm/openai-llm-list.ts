@@ -20,8 +20,7 @@ const GPT4oMini: LLM = {
   provider: "openai",
   hostedId: "gpt-4o-mini",
   platformLink: OPENAI_PLATORM_LINK,
-  imageInput: true,
-  highTier: true
+  imageInput: true
 }
 // GPT-4 Turbo (UPDATED 1/25/24)
 const GPT4Turbo: LLM = {
