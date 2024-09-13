@@ -33,21 +33,39 @@ export async function POST(request: Request) {
       organization: profile.openai_organization_id
     })
 
+    const isO1Model = ["o1-preview", "o1-mini"].includes(chatSettings.model)
+
     const response = await openai.chat.completions.create({
       model: chatSettings.model as ChatCompletionCreateParamsBase["model"],
       messages: messages as ChatCompletionCreateParamsBase["messages"],
       temperature: chatSettings.temperature,
-      max_tokens: ["gpt-4-vision-preview", "gpt-4-turbo", "gpt-4o"].includes(
+      ...(["gpt-4-vision-preview", "gpt-4-turbo", "gpt-4o"].includes(
         chatSettings.model
       )
-        ? 4096
-        : null,
-      stream: true
+        ? { max_tokens: 4096 }
+        : isO1Model
+          ? { max_completion_tokens: 4096 }
+          : {}),
+      stream: !isO1Model
     })
 
-    const stream = OpenAIStream(response)
-
-    return new StreamingTextResponse(stream)
+    if (isO1Model) {
+      if ("choices" in response) {
+        const content = response.choices[0].message.content || ""
+        console.log("O1 Model Response:", content)
+        return new Response(content, {
+          status: 200,
+          headers: {
+            "Content-Type": "text/plain"
+          }
+        })
+      } else {
+        throw new Error("Unexpected response format for O1 model")
+      }
+    } else {
+      const stream = OpenAIStream(response)
+      return new StreamingTextResponse(stream)
+    }
   } catch (error: any) {
     let errorMessage = error.message || "Ocorreu um erro inesperado."
     const errorCode = error.status || 500

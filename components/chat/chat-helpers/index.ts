@@ -301,56 +301,68 @@ export const processResponse = async (
   let contentToAdd = ""
 
   if (response.body) {
-    await consumeReadableStream(
-      response.body,
-      chunk => {
-        setFirstTokenReceived(true)
-        setToolInUse("none")
+    const contentType = response.headers.get("Content-Type")
 
-        try {
-          contentToAdd = isHosted
-            ? chunk
-            : // Ollama's streaming endpoint returns new-line separated JSON
-              // objects. A chunk may have more than one of these objects, so we
-              // need to split the chunk by new-lines and handle each one
-              // separately.
-              chunk
-                .trimEnd()
-                .split("\n")
-                .reduce(
-                  (acc, line) => acc + JSON.parse(line).message.content,
-                  ""
-                )
-          fullText += contentToAdd
-        } catch (error) {
-          console.error("Erro ao analisar JSON:", error)
-        }
+    if (contentType && contentType.includes("text/plain")) {
+      // Handle non-streaming response (O1 models)
+      fullText = await response.text()
+      setFirstTokenReceived(true)
+      setToolInUse("none")
+      updateChatMessage(lastChatMessage, fullText, setChatMessages)
+    } else {
+      // Handle streaming response (other models)
+      await consumeReadableStream(
+        response.body,
+        chunk => {
+          setFirstTokenReceived(true)
+          setToolInUse("none")
 
-        setChatMessages(prev =>
-          prev.map(chatMessage => {
-            if (chatMessage.message.id === lastChatMessage.message.id) {
-              const updatedChatMessage: ChatMessage = {
-                message: {
-                  ...chatMessage.message,
-                  content: fullText
-                },
-                fileItems: chatMessage.fileItems
-              }
+          try {
+            contentToAdd = isHosted
+              ? chunk
+              : chunk
+                  .trimEnd()
+                  .split("\n")
+                  .reduce(
+                    (acc, line) => acc + JSON.parse(line).message.content,
+                    ""
+                  )
+            fullText += contentToAdd
+          } catch (error) {
+            console.error("Erro ao analisar JSON:", error)
+          }
 
-              return updatedChatMessage
-            }
-
-            return chatMessage
-          })
-        )
-      },
-      controller.signal
-    )
+          updateChatMessage(lastChatMessage, fullText, setChatMessages)
+        },
+        controller.signal
+      )
+    }
 
     return fullText
   } else {
     throw new Error("O corpo da resposta é nulo.")
   }
+}
+
+const updateChatMessage = (
+  lastChatMessage: ChatMessage,
+  content: string,
+  setChatMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>
+) => {
+  setChatMessages(prev =>
+    prev.map(chatMessage => {
+      if (chatMessage.message.id === lastChatMessage.message.id) {
+        return {
+          ...chatMessage,
+          message: {
+            ...chatMessage.message,
+            content: content
+          }
+        }
+      }
+      return chatMessage
+    })
+  )
 }
 
 export const handleCreateChat = async (
