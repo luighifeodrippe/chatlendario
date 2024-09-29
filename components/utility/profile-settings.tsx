@@ -74,7 +74,7 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
   )
 
   const [useAzureOpenai, setUseAzureOpenai] = useState(
-    profile?.use_azure_openai
+    !profile?.use_azure_openai
   )
   const [openaiAPIKey, setOpenaiAPIKey] = useState(
     profile?.openai_api_key || ""
