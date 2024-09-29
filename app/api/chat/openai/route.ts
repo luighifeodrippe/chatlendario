@@ -63,7 +63,6 @@ export async function POST(request: Request) {
         throw new Error("Unexpected response format for O1 model")
       }
     } else {
-      // @ts-ignore
       const stream = OpenAIStream(response)
       return new StreamingTextResponse(stream)
     }
