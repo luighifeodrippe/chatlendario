@@ -113,11 +113,7 @@ export async function buildFinalMessages(
     id: processedChatMessages.length + "",
     image_paths: [],
     model: payload.chatSettings.model,
-    role:
-      chatSettings.model.indexOf("o1-preview") !== -1 ||
-      chatSettings.model.indexOf("o1-mini") !== -1
-        ? "user"
-        : "system",
+    role: "system",
     sequence_number: processedChatMessages.length,
     updated_at: "",
     user_id: ""
@@ -146,10 +142,7 @@ export async function buildFinalMessages(
               formedUrl = chatImage.base64
             }
           }
-          if (
-            chatSettings.model.indexOf("gpt-4o") !== -1 ||
-            chatSettings.model.indexOf("gpt-4o-mini") !== -1
-          ) {
+          if (chatSettings.model.indexOf("gpt-4o") !== -1) {
             return {
               type: "image_url",
               image_url: {

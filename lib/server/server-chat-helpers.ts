@@ -79,11 +79,7 @@ const TIMEOUT_HOURS = 3
 const MODELS = [
   "claude-3-opus-20240229",
   "gpt-4-turbo-preview",
-  "claude-3-5-sonnet-20240620",
-  "o1-preview",
-  "o1-mini",
-  "gpt-4o",
-  "gpt-4o-mini"
+  "claude-3-5-sonnet-20240620"
 ]
 
 async function getMessageCount(profile: Tables<"profiles">): Promise<number> {

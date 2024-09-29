@@ -16,8 +16,6 @@ export type OpenAILLMID =
   | "gpt-4-vision-preview" // GPT-4 Vision
   | "gpt-4" // GPT-4
   | "gpt-3.5-turbo" // Updated GPT-3.5 Turbo
-  | "o1-preview" // o1-preview
-  | "o1-mini" // Updated GPT-3.5 Turbo
 
 // Google Models
 export type GoogleLLMID =
