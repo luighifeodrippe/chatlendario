@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     const profile = await getServerProfile()
 
     if (embeddingsProvider === "openai") {
-      if (profile.use_azure_openai) {
+      if (!profile?.use_azure_openai) {
         checkApiKey(profile.azure_openai_api_key, "Azure OpenAI")
       } else {
         checkApiKey(profile.openai_api_key, "OpenAI")
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
     let chunks: any[] = []
 
     let openai
-    if (profile.use_azure_openai) {
+    if (!profile?.use_azure_openai) {
       openai = new OpenAI({
         apiKey: profile.azure_openai_api_key || "",
         baseURL: `${profile.azure_openai_endpoint}/openai/deployments/${profile.azure_openai_embeddings_id}`,
