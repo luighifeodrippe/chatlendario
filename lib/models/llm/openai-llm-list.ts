@@ -63,4 +63,4 @@ const GPT3_5Turbo: LLM = {
   imageInput: false
 }
 
-export const OPENAI_LLM_LIST: LLM[] = [GPT3_5Turbo, GPT4Omni, GPT4oMini]
+export const OPENAI_LLM_LIST: LLM[] = [GPT4Omni, GPT4oMini]
