@@ -34,18 +34,32 @@ export const getWorkspacesByUserId = async (userId: string) => {
   const {
     data: { user }
   } = await supabase.auth.getUser()
-  const { data: workspaces, error } = await supabase
-    .from("workspaces")
-    .select("*")
-    // .or(`user_id.eq.${userId},sharing.eq.public`)
-    .or(`user_id.eq.${userId},user_role.eq.${user?.app_metadata.role}`)
-    // .eq("user_id", userId)
-    .order("created_at", { ascending: false })
-  if (!workspaces) {
-    throw new Error(error.message)
-  }
 
-  return workspaces
+  if (user?.app_metadata.role === "formacao") {
+    const { data: workspaces, error } = await supabase
+      .from("workspaces")
+      .select("*")
+      // .or(`user_id.eq.${userId},sharing.eq.public`)
+      .or(`user_id.eq.${userId},user_role.eq.formacao,user_role.eq.comunidade`)
+      // .eq("user_id", userId)
+      .order("created_at", { ascending: false })
+    if (!workspaces) {
+      throw new Error(error.message)
+    }
+    return workspaces
+  } else {
+    const { data: workspaces, error } = await supabase
+      .from("workspaces")
+      .select("*")
+      // .or(`user_id.eq.${userId},sharing.eq.public`)
+      .or(`user_id.eq.${userId},user_role.eq.${user?.app_metadata.role}`)
+      // .eq("user_id", userId)
+      .order("created_at", { ascending: false })
+    if (!workspaces) {
+      throw new Error(error.message)
+    }
+    return workspaces
+  }
 }
 
 export const createWorkspace = async (
