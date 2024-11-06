@@ -214,7 +214,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
       // model: (session?.user?.app_metadata.role !== "formacao"
       //   ? "claude-3-haiku-20240307"
       //   : workspace?.default_model || defModel) as LLMID,
-      model: (workspace?.default_model || "claude-3-haiku-20240307") as LLMID,
+      model: (workspace?.default_model || "gpt-4o-mini") as LLMID,
       prompt:
         workspace?.default_prompt ||
         "Você é um assistente amigável, prestativo e responde as solicitações do usuário em Português do Brasil.",

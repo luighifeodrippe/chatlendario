@@ -56,7 +56,7 @@ export const WorkspaceSettings: FC<WorkspaceSettingsProps> = ({}) => {
   )
 
   const [defaultChatSettings, setDefaultChatSettings] = useState({
-    model: "claude-3-haiku-20240307",
+    model: selectedWorkspace?.default_model,
     prompt: selectedWorkspace?.default_prompt,
     temperature: selectedWorkspace?.default_temperature,
     contextLength: selectedWorkspace?.default_context_length,
