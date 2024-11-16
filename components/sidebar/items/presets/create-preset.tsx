@@ -6,6 +6,7 @@ import { ChatbotUIContext } from "@/context/context"
 import { PRESET_NAME_MAX } from "@/db/limits"
 import { TablesInsert } from "@/supabase/types"
 import { FC, useContext, useState } from "react"
+import { CHAT_SETTING_LIMITS } from "@/lib/chat-setting-limits"
 
 interface CreatePresetProps {
   isOpen: boolean
@@ -24,8 +25,13 @@ export const CreatePreset: FC<CreatePresetProps> = ({
   const [presetChatSettings, setPresetChatSettings] = useState({
     model: selectedWorkspace?.default_model,
     prompt: selectedWorkspace?.default_prompt,
-    temperature: selectedWorkspace?.default_temperature,
-    contextLength: selectedWorkspace?.default_context_length,
+    temperature: 0,
+    contextLength:
+      (selectedWorkspace?.default_model &&
+        CHAT_SETTING_LIMITS[
+          selectedWorkspace.default_model as keyof typeof CHAT_SETTING_LIMITS
+        ]?.MAX_CONTEXT_LENGTH) ||
+      128000,
     includeProfileContext: selectedWorkspace?.include_profile_context,
     includeWorkspaceInstructions:
       selectedWorkspace?.include_workspace_instructions,

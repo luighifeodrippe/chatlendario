@@ -73,12 +73,17 @@ export function checkApiKey(apiKey: string | null, keyName: string) {
     throw new Error(`Chave API ${keyName} não encontrada.`)
   }
 }
-const MESSAGE_LIMIT = 40
+const MESSAGE_LIMITS = {
+  formacao: 40,
+  comunidade: 20,
+  "8020": 10
+}
+
 const TIMEOUT_HOURS = 3
 
 const MODELS = [
   "claude-3-opus-20240229",
-  "gpt-4-turbo-preview",
+  "gpt-4o",
   "claude-3-5-sonnet-20240620"
 ]
 
@@ -96,8 +101,6 @@ async function getMessageCount(profile: Tables<"profiles">): Promise<number> {
   )
 
   const threeHoursAgo = getThreeHoursAgoDate()
-  console.log("threeHoursAgo")
-  console.log(threeHoursAgo)
   const { count } = await supabase
     .from("messages")
     .select("*", { count: "exact" })
@@ -108,28 +111,41 @@ async function getMessageCount(profile: Tables<"profiles">): Promise<number> {
 }
 
 export async function limitMessage() {
+  const supabase = createServerClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookies().get(name)?.value
+        }
+      }
+    }
+  )
   const profile = await getServerProfile()
   const currentDate = new Date()
-  // currentDate.setHours(currentDate.getHours() - 3)
   const lastTimeOut = profile.last_timeout
     ? profile.last_timeout
     : getThreeHoursAgoDate().toISOString()
-  console.log("currentDate")
-  console.log(currentDate)
-  console.log("lastTimeOut")
-  console.log(lastTimeOut)
+
+  const user = (await supabase.auth.getUser()).data.user
+  const userRole = user?.app_metadata?.role || "8020" // Default para o menor limite
+  const messageLimit =
+    MESSAGE_LIMITS[userRole as keyof typeof MESSAGE_LIMITS] ||
+    MESSAGE_LIMITS["8020"]
+
   if (lastTimeOut < currentDate.toISOString()) {
     try {
       const messageCount = await getMessageCount(profile)
-      console.log("messageCount")
-      console.log(messageCount)
-      if (messageCount >= MESSAGE_LIMIT) {
+      console.log("messageCount", messageCount)
+      console.log("messageLimit", messageLimit)
+      if (messageCount >= messageLimit) {
         const timeoutDate = new Date(
           currentDate.getTime() + TIMEOUT_HOURS * 60 * 60 * 1000
         )
         await updateProfileTimeout(profile.id, timeoutDate)
         throw new Error(
-          "Você ultrapassou o limite de mensagens nas últimas 3 horas, tire um tempo para você."
+          `Você ultrapassou o limite de ${messageLimit} mensagens nas últimas 3 horas, tire um tempo para você.`
         )
       }
     } catch (error) {
@@ -137,25 +153,17 @@ export async function limitMessage() {
       throw error
     }
   } else {
-    const offsetHours = -3 // Seu fuso horário (-3 horas)
-
-    // Converter a data ISO para um objeto Date
+    const offsetHours = -3
     const date = new Date(lastTimeOut)
-
-    // Obter a diferença em milissegundos entre o fuso horário local e o UTC
     const offset = date.getTimezoneOffset() + offsetHours * 60
-
-    // Criar um novo objeto Date com a diferença de fuso horário aplicada
     const adjustedDate = new Date(date.getTime() - offset * 60 * 1000)
-
-    // Extrair as horas e minutos da data ajustada
     let hours = adjustedDate.getHours().toString().padStart(2, "0")
     hours = (parseInt(hours) - 6).toString().padStart(2, "0")
     let minutes = adjustedDate.getMinutes().toString().padStart(2, "0")
     minutes = (parseInt(minutes) + 1).toString().padStart(2, "0")
     const adjustedTimeString = `${hours}:${minutes}`
     throw new Error(
-      `Você ultrapassou o limite de mensagens nas últimas 3 horas para este modelo. Seu acesso ao Opus e GPT-Turbo será reestabelecido após 3 horas desde a última mensagem enviada. Utilize outro modelo enquanto isso.`
+      `Você ultrapassou o limite de ${messageLimit} mensagens nas últimas 3 horas para este modelo. Seu acesso aos modelos Premium será reestabelecido após 3 horas desde a última mensagem enviada. Utilize outro modelo enquanto isso.`
     )
   }
 }

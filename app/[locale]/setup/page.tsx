@@ -163,7 +163,7 @@ export default function SetupPage() {
           <StepContainer
             stepDescription="Vamos criar seu perfil."
             stepNum={currentStep}
-            stepTitle="Bem-vindo ao Lab[IA]"
+            stepTitle="Bem-vindo ao Lab[IA] Chat"
             onShouldProceed={handleShouldProceed}
             showNextButton={!!(username && usernameAvailable)}
             showBackButton={false}
@@ -185,7 +185,7 @@ export default function SetupPage() {
           <StepContainer
             stepDescription="Todas as APIs já foram devidamente configuradas para você."
             stepNum={currentStep}
-            stepTitle="Lab[IA]"
+            stepTitle="Lab[IA] Chat"
             onShouldProceed={handleShouldProceed}
             showNextButton={true}
             showBackButton={true}

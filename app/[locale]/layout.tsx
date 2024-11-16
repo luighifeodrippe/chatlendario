@@ -14,9 +14,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"] })
-const APP_NAME = "Lab[IA]"
-const APP_DEFAULT_TITLE = "Lab[IA]"
-const APP_TITLE_TEMPLATE = "%s - Lab[IA]"
+const APP_NAME = "Lab[IA] Chat"
+const APP_DEFAULT_TITLE = "Lab[IA] Chat"
+const APP_TITLE_TEMPLATE = "%s - Lab[IA] Chat"
 const APP_DESCRIPTION = "Laboratório Lendário"
 
 interface RootLayoutProps {

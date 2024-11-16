@@ -48,17 +48,17 @@ export const ModelSelect: FC<ModelSelectProps> = ({
   }, [isOpen])
 
   const handleSelectModel = async (modelId: LLMID) => {
-    const {
-      data: { user }
-    } = await supabase.auth.getUser()
-    if (
-      user?.app_metadata.role !== "formacao" &&
-      allModels?.find(x => x.modelId == modelId)?.highTier == true
-    ) {
-      toast.error("Modelo exclusivo para alunos da Formação Lendária.")
-    } else {
-      onSelectModel(modelId)
-    }
+    // const {
+    //   data: { user }
+    // } = await supabase.auth.getUser()
+    // if (
+    //   user?.app_metadata.role !== "formacao" &&
+    //   allModels?.find(x => x.modelId == modelId)?.highTier == true
+    // ) {
+    //   toast.error("Modelo exclusivo para alunos da Formação Lendária.")
+    // } else {
+    onSelectModel(modelId)
+    // }
     setIsOpen(false)
   }
 
