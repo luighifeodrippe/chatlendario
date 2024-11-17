@@ -129,6 +129,13 @@ export async function limitMessage() {
     : getThreeHoursAgoDate().toISOString()
 
   const user = (await supabase.auth.getUser()).data.user
+  // Verificação de emails especiais
+  if (
+    user?.email?.includes("vidalendaria") ||
+    user?.email?.includes("academialendaria")
+  ) {
+    return // Retorna sem verificar limites para estes emails
+  }
   const userRole = user?.app_metadata?.role || "8020" // Default para o menor limite
   const messageLimit =
     MESSAGE_LIMITS[userRole as keyof typeof MESSAGE_LIMITS] ||
