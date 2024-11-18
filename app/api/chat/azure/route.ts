@@ -1,4 +1,9 @@
-import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
+import { OPENAI_LLM_LIST } from "@/lib/models/llm/openai-llm-list"
+import {
+  checkApiKey,
+  getServerProfile,
+  limitMessage
+} from "@/lib/server/server-chat-helpers"
 import { ChatAPIPayload } from "@/types"
 import { OpenAIStream, StreamingTextResponse } from "ai"
 import OpenAI from "openai"
@@ -14,7 +19,11 @@ export async function POST(request: Request) {
     const profile = await getServerProfile()
 
     checkApiKey(profile.azure_openai_api_key, "Azure OpenAI")
-
+    if (
+      OPENAI_LLM_LIST.find(model => model.modelId === chatSettings.model)
+        ?.highTier
+    )
+      await limitMessage()
     const ENDPOINT = profile.azure_openai_endpoint
     const KEY = profile.azure_openai_api_key
 
@@ -69,7 +78,8 @@ export async function POST(request: Request) {
 
     return new StreamingTextResponse(stream)
   } catch (error: any) {
-    const errorMessage = error.error?.message || "Ocorreu um erro inesperado."
+    console.error("Erro ao chamar a Azure OpenAI API:", error)
+    const errorMessage = error.message || "Ocorreu um erro inesperado."
     const errorCode = error.status || 500
     return new Response(JSON.stringify({ message: errorMessage }), {
       status: errorCode

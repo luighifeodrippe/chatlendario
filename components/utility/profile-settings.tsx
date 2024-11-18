@@ -737,7 +737,8 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
             <WithTooltip
               display={
                 <div>
-                  Baixe os dados do Lab[IA] 1.0 como JSON. Importação em breve!
+                  Baixe os dados do Lab[IA] Chat 1.0 como JSON. Importação em
+                  breve!
                 </div>
               }
               trigger={

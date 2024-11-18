@@ -19,6 +19,7 @@ import { LLMID } from "@/types"
 import { useParams, useRouter } from "next/navigation"
 import { ReactNode, useContext, useEffect, useState } from "react"
 import Loading from "../loading"
+import { CHAT_SETTING_LIMITS } from "@/lib/chat-setting-limits"
 // import { SpeedInsights } from "@vercel/speed-insights/next"
 interface WorkspaceLayoutProps {
   children: ReactNode
@@ -211,15 +212,14 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     // console.log(defModel)
     // console.log(workspace?.default_model)
     setChatSettings({
-      // model: (session?.user?.app_metadata.role !== "formacao"
-      //   ? "claude-3-haiku-20240307"
-      //   : workspace?.default_model || defModel) as LLMID,
       model: (workspace?.default_model || "gpt-4o-mini") as LLMID,
       prompt:
         workspace?.default_prompt ||
         "Você é um assistente amigável, prestativo e responde as solicitações do usuário em Português do Brasil.",
-      temperature: workspace?.default_temperature || 0,
-      contextLength: workspace?.default_context_length || 128000,
+      temperature: 0,
+      contextLength:
+        CHAT_SETTING_LIMITS[workspace?.default_model as LLMID]
+          ?.MAX_CONTEXT_LENGTH || 128000,
       includeProfileContext: workspace?.include_profile_context || false,
       includeWorkspaceInstructions:
         workspace?.include_workspace_instructions || true,

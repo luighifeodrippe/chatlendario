@@ -22,7 +22,7 @@ export const CreateUser: FC<CreateUserProps> = () => {
   const router = useRouter()
 
   const [newEmail, setNewEmail] = useState("")
-  const [role, setRole] = useState("comunidade")
+  const [role, setRole] = useState("8020")
   const [newPass, setNewPass] = useState("")
 
   const handleCreateUser = async () => {
@@ -82,6 +82,7 @@ export const CreateUser: FC<CreateUserProps> = () => {
             {/* <option value="">Selecione uma opção</option> */}
             <option value="formacao">Formação</option>
             <option value="comunidade">Comunidade</option>
+            <option value="8020">80/20</option>
           </select>
           {/* <p>Opção selecionada: {role}</p> */}
         </div>
