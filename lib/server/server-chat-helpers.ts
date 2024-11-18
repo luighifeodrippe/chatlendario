@@ -75,8 +75,8 @@ export function checkApiKey(apiKey: string | null, keyName: string) {
 }
 const MESSAGE_LIMITS = {
   formacao: 40,
-  comunidade: 20,
-  "8020": 10
+  comunidade: 30,
+  "8020": 20
 }
 
 const TIMEOUT_HOURS = 3
