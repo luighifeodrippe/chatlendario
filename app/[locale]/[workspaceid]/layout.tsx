@@ -207,7 +207,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
 
     let defModel =
       session?.user?.app_metadata.role !== "formacao"
-        ? "claude-3-haiku-20240307"
+        ? "claude-3-5-haiku-20241022"
         : "gpt-4-1106-preview"
     // console.log(defModel)
     // console.log(workspace?.default_model)
