@@ -25,7 +25,7 @@ export const CreateAssistant: FC<CreateAssistantProps> = ({
   const [isTyping, setIsTyping] = useState(false)
   const [description, setDescription] = useState("")
   const [assistantChatSettings, setAssistantChatSettings] = useState({
-    model: "claude-3-haiku-20240307",
+    model: "claude-3-5-haiku-20241022",
     prompt: selectedWorkspace?.default_prompt,
     temperature: selectedWorkspace?.default_temperature,
     contextLength: selectedWorkspace?.default_context_length,

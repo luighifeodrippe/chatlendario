@@ -106,7 +106,7 @@ export const QuickSettings: FC<QuickSettingsProps> = ({}) => {
       setSelectedTools([])
       if (selectedWorkspace) {
         setChatSettings({
-          model: "claude-3-haiku-20240307" as LLMID,
+          model: "claude-3-5-haiku-20241022" as LLMID,
           prompt: selectedWorkspace.default_prompt,
           temperature: selectedWorkspace.default_temperature,
           contextLength: selectedWorkspace.default_context_length,
